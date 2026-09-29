@@ -1,0 +1,77 @@
+# =========================
+# Restricted / local datasets
+# =========================
+data/mimic-cxr-jpg/
+data/mimic-cxr/
+data/*mimic*
+data/*MIMIC*
+
+# =========================
+# Model weights
+# =========================
+models/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+
+# =========================
+# Private experiment outputs
+# =========================
+results/
+logs/
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# =========================
+# Environments / secrets
+# =========================
+.venv/
+venv/
+env/
+.env
+.env.*
+*.key
+*.pem
+*.token
+
+# =========================
+# Hugging Face / caches
+# =========================
+.cache/
+huggingface/
+hf_cache/
+
+# =========================
+# OS / editors
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# =========================
+# Slurm output
+# =========================
+*.out
+*.err
+slurm-*.out
+slurm-*.log
+
+# MIMIC-derived private manifests / references
+data/mimic_cxr_test_references.jsonl
+data/mimic_cxr_test_references_v2.jsonl
+data/project_a_pilot_20.jsonl
+data/project_a_pilot_conditions.jsonl
+data/c2_mismatch_mapping.jsonl
+
+# Manual annotations containing model outputs
