@@ -1,660 +1,330 @@
-# Literature Review: Image Dependence, Language Priors, and Medical VLM Evaluation
+# Literature Review: Image Dependence in Medical Report Generation
 
-## Project question
-
-This project asks whether medical vision-language models actually use the image when generating a chest-X-ray report, or whether conventional reference-based evaluation can be satisfied substantially by learned language/population priors.
-
-The controlled protocol keeps the target study, prompt, and decoding procedure fixed while changing the visual input:
-
-- **C1 — real image:** correct image for the target study.
-- **C2 — mismatched image:** another patient's image.
-- **C3 — blank image:** visually uninformative input.
-- **C4 — metadata only:** no usable image, but metadata/context.
-- **C5 — no input:** no image.
-
-The same outputs are evaluated against the correct reference and, where useful, deliberately wrong references.
-
-The central distinction is:
-
-> **Clinical correctness is not the same thing as image dependence, and reference agreement is not proof of visual grounding.**
+*Project A, medical-vlm-gap. Revised 1 October 2026. Every link in this document was checked on that date; see the verification table at the end.*
 
 ---
 
-## Executive conclusion
+## 1. The question
 
-The literature strongly supports the motivation: language priors, hallucination, shortcut learning, modality attribution, and weaknesses of reference-based report metrics are all established concerns.
+When a medical vision-language model writes a chest X-ray report, how much of what it says depends on the image it was given?
 
-The more interesting potential novelty is narrower:
+Reference-based evaluation can't answer this. A report can agree with the radiologist's reference because the model read the image, or because it wrote a plausible report about a typical patient. On a hospital population like MIMIC-CXR, where most patients have common findings, those two routes can earn similar scores.
 
-> **An intervention-based evaluation framework for free-text medical report generation that measures how much clinically meaningful report content survives removal or replacement of the image, while using wrong-reference controls to distinguish target-following from generic report similarity.**
+The project measures image dependence directly. The target study, prompt and decoding stay fixed while the visual input changes:
 
-The project should therefore **not** claim that medical VLMs using language priors is itself novel. The potential contribution is the combination of:
+| Condition | Visual input | Purpose |
+| --- | --- | --- |
+| C1 Real | Correct image | Normal behaviour |
+| C2 Mismatched | Another patient's image | Does the output follow the supplied image? |
+| C3 Blank | Uniform black image | Behaviour with an uninformative image |
+| C4 Metadata only | No image (or blank, if required), acquisition metadata as text | Influence of non-visual context |
+| C5 No input | No image (or blank, if required) | The model's language-only prior |
 
-1. controlled image replacement,
-2. image ablation,
-3. source-vs-target reference scoring,
-4. clinical finding-level evaluation,
-5. information/specificity tiers,
-6. and comparison between a generalist model and a specialist chest-X-ray model.
+Each output is scored against the correct reference and against references it should not match. C2 outputs are scored against both the source study's report and the target study's report. C1 outputs are also scored against an unrelated study's report, which gives a chance baseline.
 
-The closest literature must still be checked paper-by-paper for exact overlap before making a publication-level novelty claim.
-
----
-
-# 1. Current experiment
-
-Lingshu-7B has been run on 20 MIMIC-CXR test studies under five conditions:
-
-| Condition | Input |
-|---|---|
-| C1 | Correct image |
-| C2 | Mismatched image |
-| C3 | Blank image |
-| C4 | Metadata only |
-| C5 | No input |
-
-This produced **100 successful outputs**.
-
-The current pilot uses effectively greedy decoding (`top_k=1`, repetition penalty 1.05). The seed field in the conditions file is not actually used. Target/source pairs were generated outside the repository and should currently be treated as effectively random.
-
-### Current lexical result
-
-- C1: 20 distinct outputs.
-- C3: 19/20 duplicate outputs.
-- C5: 19/20 duplicate outputs.
-- C4: 15/20 duplicate outputs.
-
-Thus the visual input clearly changes Lingshu's generated language, while image-free conditions collapse toward highly repetitive responses.
-
-However, lexical variation does **not** establish clinical grounding.
-
-### Current judge result
-
-A text-only Llama-3.1-8B judge scored 139/140 output-reference pairs.
-
-Approximate results:
-
-- C1 vs target reference: **1.70**
-- C5 vs target reference: **1.50**
-- C1 − C5: **0.20**, p = 0.41
-- C1 substantially exceeded C3/C4 in the current pilot.
-- C2 showed little evidence of following the source study rather than the target study.
-
-Interpretation:
-
-> Lingshu changes its output in response to the visual input, but the current pilot does not establish that its clinically meaningful content is strongly image-dependent.
-
-This is a low-powered result: n=20, coarse 0–3 judge scale, and a text-only LLM judge with limited resolution.
+The central distinction: **reference agreement is not evidence that the image was used.**
 
 ---
 
-# 2. Foundational language-prior literature
+## 2. Summary of where the literature stands
 
-## VQA v2 — Goyal et al.
+The motivation is well established. Language priors in vision-language models, failures to use visual input, shortcut learning in chest X-ray models and the limits of reference-based report metrics are all documented.
 
-**Making the V in VQA Matter: Elevating the Role of Image Understanding in Visual Question Answering**
+Since June 2026, the core idea has also been published for **question answering**. Lotfinia et al. introduced a causal audit for chest X-ray question answering that swaps and occludes images and compares results with matched text-only baselines. They found that accuracy and image use come apart. Their paper explicitly names free-form report generation as the natural next step and leaves it untested.
 
-https://arxiv.org/abs/1612.00837
+The defensible contribution of this project is therefore narrower and clearer than originally framed:
 
-Shows that standard VQA datasets contain strong language priors and introduced balanced data to reduce answer bias.
+> **Interventional auditing of free-text report generation.** This uses image swap and ablation, scores each output against both the correct reference and a wrong one, analyses findings by how guessable they are, and uses a chest X-ray specialist as a positive control.
 
-**Relevance:** foundational evidence that multimodal systems can answer correctly without relying strongly on visual evidence.
-
-**Difference:** VQA rather than free-form medical report generation.
+The project should not claim that language-prior reliance in medical VLMs is new, nor that image swapping is new.
 
 ---
 
-## VQA-CP — Agrawal et al.
+## 3. Current results (pilot, n = 20 MIMIC-CXR test studies)
 
-**Don't Just Assume; Look and Answer: Overcoming Priors for Visual Question Answering**
+**Setup.** There were 100 outputs per model, for Lingshu-7B (a generalist medical VLM) and MAIRA-2 (a chest X-ray specialist). Decoding was effectively greedy. Clinical content was scored by a blinded, text-only Llama-3.1-8B judge on a 0–3 agreement scale; 139 of 140 Lingshu items and most MAIRA-2 items were successfully scored.
 
-https://arxiv.org/abs/1811.03347
+**Reproducibility.** Rerunning 23 Lingshu cases reproduced every output exactly, so all differences between conditions are driven by the input.
 
-Changes answer distributions between train and test to expose reliance on language priors.
+**Lexical behaviour.** Lingshu's wording depends on the image: C1 gave 20 distinct outputs, while C3 and C5 collapsed to near-identical text. But its C1-vs-C2 token overlap (Jaccard 0.18) sits at its own cross-study floor (0.22), so lexical difference alone shows nothing about grounding.
 
-**Relevance:** very close conceptually.
+**Clinical content, judged against references:**
 
-**Difference:** distribution shift rather than direct counterfactual replacement of the supplied image.
+| Measure | Lingshu-7B | MAIRA-2 |
+| --- | --- | --- |
+| C1 vs own reference | 1.70 | 1.47 |
+| C1 vs unrelated reference | 1.26 | 0.63 |
+| Source-following (C2: source minus target) | +0.05 (14/20 ties) | +0.70, 95% CI \[0.1, 1.3\], p = 0.052 |
+| Own vs unrelated (C1) | +0.42, n.s. | +0.78, p = 0.035 |
+| Real image vs blank (C1 − C3) | +0.90 | +0.89 |
+| Real image vs no-information baseline (C1 − C5) | +0.20, p = 0.41 | +1.05, p = 0.002\* |
 
-**Implication:** language-prior dependence is established; it should be motivation rather than the novelty claim.
+\*MAIRA-2 requires an image, so its C4 and C5 used the blank placeholder. Its C5 is therefore not a language-only baseline, and C1 − C5 is not a like-for-like comparison between the models.
 
----
+**Stratification.** 19 of 20 target studies were abnormal. Lingshu's high C5 score therefore cannot come from matching normal studies. Its image-free output is a typical-patient report that earns partial credit across an abnormal population.
 
-# 3. Multimodal contribution / reliance
+**Direct model comparison (paired by study, bootstrap):**
 
-## Perceptual Score — Gat et al.
+- Source-following: MAIRA-2 minus Lingshu = +0.65, CI \[−0.10, +1.45\]. Suggestive, not established.
+- Real vs blank: −0.11. No difference.
 
-**Faithful Vision-Language Interpretation via Perceptual Score**
-
-https://arxiv.org/abs/2109.07913
-
-Introduces a framework for assessing whether multimodal outputs are actually affected by visual information.
-
-**Relevance:** one of the closest methodological precedents.
-
-**Difference:** not specifically designed for clinical report generation.
-
----
-
-## MM-SHAP — Parcalabescu & Frank
-
-**MM-SHAP: A Performance-agnostic Metric for Measuring Multimodal Contributions**
-
-https://arxiv.org/abs/2303.13425
-
-Uses SHAP-style attribution to quantify modality contributions.
-
-**Relevance:** supports evaluating the contribution of each modality rather than assuming that supplying an image means it was used.
-
-**Difference:** attribution-based rather than direct image intervention.
+**Interpretation.** Within Lingshu, the image changes the wording but adds little clinically measurable content beyond the language prior. Within MAIRA-2, the protocol detects clear image dependence, which validates the method. The difference between the models needs a larger sample: about 60 studies to detect the source-following difference with 80% power, so plan for about 100.
 
 ---
 
-# 4. Medical VLM hallucination and trustworthiness
+## 4. Closest prior work (2026)
 
-Recent medical VLM literature increasingly evaluates unsupported findings, hallucinations, robustness, and trustworthiness.
+### 4.1 Lotfinia et al. — the closest paper
 
-Useful search entry points:
+**Vision-language models for chest radiography do not always need the image** (arXiv, June 2026) [https://arxiv.org/abs/2606.17710](https://arxiv.org/abs/2606.17710)
 
-- https://arxiv.org/search/?query=medical+vision+language+model+hallucination&searchtype=all
-- https://scholar.google.com/scholar?q=medical+vision+language+model+hallucination+benchmark
-- https://scholar.google.com/scholar?q=medical+vision+language+model+trustworthiness+benchmark
+The study audits nine systems on 2,575 yes/no chest X-ray questions under four image conditions: original, swap to a different patient's same-label image, occlusion of the radiologist-marked region, and occlusion of an irrelevant region. It derives three behavioural metrics:
 
-Relevant work includes ProbMed and CARES-style trustworthiness evaluations.
+- **Causal grounding rate:** how often target occlusion flips a correct answer.
+- **Unrelated-image answer rate:** how often a correct answer survives a swap.
+- **Irrelevant-mask stability:** how often an answer survives an irrelevant occlusion.
 
-**Key distinction for this project:**
+Findings:
 
-- Hallucination asks: *Is this statement supported?*
-- Image dependence asks: *Would the model still produce this statement if the image were removed or replaced?*
+- A text-only model came within 5.7 accuracy points of the best multimodal system.
+- Three systems ignored the image entirely.
+- Image use was sparse and specific to particular findings.
+- Grounding was weaker on AP (portable) studies.
+- A text-only model could not be statistically distinguished from a reference radiologist on accuracy, yet never grounded an answer.
 
-The second question is the more distinctive target.
+**Relevance:** this is the same conceptual move as Project A, applied to question answering.
 
----
+**Difference:** it uses binary questions, not free-text reports. The authors state that grounding in open-ended generation may differ, and name extending the audit to generated reports as the natural next step.
 
-# 5. Radiology report-generation metrics
+**Ideas to adopt:**
 
-## RadGraph
+- **Same-label vs opposite-label swaps.** They note opposite-label swaps as a complementary test they did not run. Project A's planned contrasting pairs are exactly this.
+- **An irrelevant-change control** to estimate generic sensitivity.
+- **Finding-level reporting.** In their data, cardiomegaly, consolidation, edema, effusion and pneumonia carried the grounding, while atelectasis and lung opacity were inert.
+- **View-stratified analysis** (PA vs AP).
+- **A radiologist reference read** on a subsample.
 
-**RadGraph: Extracting Clinical Entities and Relations from Radiology Reports**
+### 4.2 ModaLens
 
-https://arxiv.org/abs/2106.14463
+**ModaLens: Measuring Image Sensitivity in Report-Conditioned Medical VLMs** (arXiv, September 2026) [https://arxiv.org/abs/2609.15635](https://arxiv.org/abs/2609.15635) · paper page: [https://huggingface.co/papers/2609.15635](https://huggingface.co/papers/2609.15635)
 
-Provides structured clinical entities and relations for comparing radiology reports.
+The study runs a paired image-swap audit of MedGemma-27B on 3,199 MIMIC-CXR cases, replacing each image with one from another study (usually the same patient's) while keeping the question and report fixed. Providing the report sharply reduced sensitivity to the swap.
 
-**Relevance:** highly useful for our planned finding-level analysis.
+**Relevance:** it confirms that image-swap auditing on MIMIC-CXR is an active area.
 
-**Limitation for our question:** it remains fundamentally reference-based.
+**Difference:** it covers question answering with a report supplied as input, not report generation.
 
----
+### 4.3 Context-conflict benchmarks
 
-## RadCliQ
+**MC-CXR: A Multi-Context Chest X-ray Benchmark for Context-Induced Disruption in Vision–Language Models** (arXiv, 2026) [https://arxiv.org/abs/2608.24118](https://arxiv.org/abs/2608.24118)
 
-**RadCliQ: A Generalized Metric for Evaluating Radiology Report Generation**
+This benchmark tests whether a correct image-only decision survives conflicting text or a conflicting prior image. Misleading text pulled models far more often than misleading visual context. It is relevant to C4, and to any future condition that pairs a mismatched image with the target's metadata.
 
-https://arxiv.org/abs/2203.16635
+**Medical Context Distorts Decisions in Clinical Vision Language Models** (arXiv, 2026) [https://arxiv.org/abs/2605.17436](https://arxiv.org/abs/2605.17436)
 
-Moves report evaluation beyond simple lexical metrics.
+This study evaluates general and medical VLMs on MIMIC-CXR tasks with added clinical context, and frames the results in terms of modality collapse toward language priors. It is relevant to C4.
 
-**Relevance:** important current evaluation baseline.
+### 4.4 Tangential 2026 work
 
-**Limitation:** even a strong clinical reference metric does not establish that a generated finding came from the supplied image.
+**Auditing Medical Vision-Language Models on Chest Radiographs: Estimating Reference Agreement Across Institutions** (arXiv, 2026) [https://arxiv.org/abs/2608.07550](https://arxiv.org/abs/2608.07550)
 
----
-
-## GREEN
-
-**GREEN: Generative Radiology Evaluation and Error Naming**
-
-https://arxiv.org/abs/2405.03595
-
-Uses a generative evaluator to identify and classify clinically meaningful report errors.
-
-**Relevance:** useful for evaluating clinical correctness.
-
-**Important distinction:** GREEN can assess whether an output is clinically wrong, but not necessarily whether that output would have been different without the image.
+This paper is about how well reference agreement transfers across institutions, not about image dependence. Cite it only if discussing the limits of reference agreement.
 
 ---
 
-## ReXrank
+## 5. Foundational work on language priors
 
-Radiology report-generation benchmark/leaderboard:
+**Goyal et al., Making the V in VQA Matter** (CVPR 2017) [https://arxiv.org/abs/1612.00837](https://arxiv.org/abs/1612.00837)
 
-https://github.com/rajpurkarlab/rexrank
+The paper balanced VQA with complementary image pairs and showed that models exploit language priors. It is foundational motivation.
 
-Useful for understanding contemporary evaluation practice and baselines.
+**Agrawal et al., Don't Just Assume; Look and Answer: Overcoming Priors for Visual Question Answering** (CVPR 2018) [https://arxiv.org/abs/1712.00377](https://arxiv.org/abs/1712.00377)
 
----
+The paper introduced VQA-CP, in which answer priors differ between train and test, and showed that models degrade sharply under the shift. It probes priors through distribution shift, not through intervention on individual images.
 
-# 6. The two main models
-
-## MAIRA-2
-
-**MAIRA-2: Grounded Radiology Report Generation**
-
-https://arxiv.org/abs/2406.04445
-
-MAIRA-2 is a chest-X-ray specialist and is especially useful as a **positive control**.
-
-The important comparison is not simply whether MAIRA-2 has a higher conventional score.
-
-The useful question is whether it shows:
-
-- strong source-following under C2,
-- a large C1-C5 clinical-content gap,
-- and stronger retention of high-specificity findings.
+**Tong et al., Eyes Wide Shut? Exploring the Visual Shortcomings of Multimodal LLMs** (CVPR 2024) *Cited from the reference list of Lotfinia et al.; no link verified here.*
 
 ---
 
-## Lingshu-7B
+## 6. Measuring modality contribution
 
-Lingshu-7B is the generalist medical VLM used in the current experiment.
+**Gat, Schwartz & Schwing, Perceptual Score: What Data Modalities Does Your Model Perceive?** (NeurIPS 2021) [https://arxiv.org/abs/2110.14375](https://arxiv.org/abs/2110.14375)
 
-Search/reference:
+The paper measures reliance on a modality by permuting that modality across test samples. It found that more accurate VQA models perceived the image less. This is a close methodological precedent: permuting images across samples is essentially C2 applied in aggregate.
 
-https://arxiv.org/search/?query=Lingshu-7B&searchtype=all
+**Parcalabescu & Frank, MM-SHAP: A Performance-agnostic Metric for Measuring Multimodal Contributions in Vision and Language Models & Tasks** (ACL 2023) [https://arxiv.org/abs/2212.08158](https://arxiv.org/abs/2212.08158) · [https://aclanthology.org/2023.acl-long.223](https://aclanthology.org/2023.acl-long.223)
 
-Its role is to test whether a capable generalist can generate clinically plausible reports whose apparent reference agreement exceeds measurable image dependence.
-
----
-
-# 7. Shortcut learning in medical imaging
-
-Chest-X-ray classification literature contains extensive evidence of non-pathological shortcuts:
-
-- hospital/site effects,
-- acquisition differences,
-- portable/stationary imaging,
-- devices,
-- demographic correlations,
-- and prevalence differences.
-
-Useful search:
-
-https://scholar.google.com/scholar?q=chest+x-ray+shortcut+learning+dataset+shift
-
-This supports the motivation for C4 metadata-only testing.
-
-However, most shortcut-learning work concerns classification rather than free-text report generation.
+The paper introduces a Shapley-value score for modality contribution that does not depend on accuracy. It is attribution-based, whereas Project A is interventional, so cite it as a complementary approach.
 
 ---
 
-# 8. Missing-modality and modality-ablation literature
+## 7. Reliability probes for medical VLMs
 
-Useful search:
+**Yan et al., Worse than Random? An Embarrassingly Simple Probing Evaluation of Large Multimodal Models in Medical VQA** (Findings of ACL 2025; the ProbMed benchmark) [https://aclanthology.org/2025.findings-acl.981/](https://aclanthology.org/2025.findings-acl.981/)
 
-https://scholar.google.com/scholar?q=multimodal+medical+AI+modality+ablation+missing+modality
+The paper pairs questions with negated or hallucinated variants, and models fall below chance.
 
-Common approaches include:
+**Sepehri et al., MediConfusion: Can You Trust Your AI Radiologist?** (ICLR 2025) [https://openreview.net/forum?id=H9UnNgdq0g](https://openreview.net/forum?id=H9UnNgdq0g)
 
-- modality dropout,
-- modality masking,
-- missing-modality robustness,
-- modality permutation,
-- modality attribution.
+The benchmark uses image pairs that look different but that models confuse, constructed so that language priors alone cannot beat random. Even proprietary systems score below random.
 
-These support C3/C5 conceptually.
+*Both links are taken from the reference list of Lotfinia et al.*
 
-The project is different in emphasis:
-
-> We are not merely asking whether the model remains functional without a modality. We want to quantify how much **clinically meaningful generated content** survives removal of the image.
+**How this differs from Project A:** these benchmarks degrade performance through adversarial constructions. Project A asks whether ordinary, unmodified report content depends on the image.
 
 ---
 
-# 9. Counterfactual / image-swap evaluation
+## 8. Report-generation metrics
 
-Useful searches:
+All of these are reference-based. They measure how well an output agrees with a reference, not where its content came from. The proposal is to apply them *across* interventions, not to replace them.
 
-- https://scholar.google.com/scholar?q=counterfactual+evaluation+vision+language+models+image+swap
-- https://scholar.google.com/scholar?q=mismatched+image+vision+language+model+medical
-- https://scholar.google.com/scholar?q=shuffled+images+vision+language+medical
+| Metric | Paper | Link |
+| --- | --- | --- |
+| CheXbert labels | Smit et al., EMNLP 2020 | [https://arxiv.org/abs/2004.09167](https://arxiv.org/abs/2004.09167) |
+| RadGraph / RadGraph F1 | Jain et al., NeurIPS Datasets & Benchmarks 2021 | [https://arxiv.org/abs/2106.14463](https://arxiv.org/abs/2106.14463) |
+| RadCliQ | Yu et al., *Evaluating progress in automatic chest X-ray radiology report generation*, Patterns 2023 | [https://doi.org/10.1101/2022.08.30.22279318](https://doi.org/10.1101/2022.08.30.22279318) · [https://pmc.ncbi.nlm.nih.gov/articles/PMC10499844](https://pmc.ncbi.nlm.nih.gov/articles/PMC10499844) |
+| GREEN | Ostmeier et al., *GREEN: Generative Radiology Report Evaluation and Error Notation*, Findings of EMNLP 2024 | [https://arxiv.org/abs/2405.03595](https://arxiv.org/abs/2405.03595) |
+| ReXrank (leaderboard) | Zhang et al., 2024 | [https://arxiv.org/abs/2411.15122](https://arxiv.org/abs/2411.15122) · [https://rexrank.ai](https://rexrank.ai) |
 
-The broader VLM literature contains image permutation, negative-image, counterfactual image-text, and modality-replacement methods.
-
-Therefore, **image swapping alone should not be claimed as novel**.
-
-The stronger novelty question is:
-
-> Has image swapping been systematically combined with image ablation, source-vs-target reference controls, and finding-level clinical analysis for free-text medical report generation?
-
-That combination is the main literature gap to verify.
+For the scaled study, use CheXbert labels or RadGraph F1 as an objective second metric alongside the LLM judge. GREEN's error categories map naturally onto the "reference-unsupported finding" analysis.
 
 ---
 
-# 10. Retrieval and template baselines
+## 9. Models
 
-MIMIC-CXR contains recurring clinical language and common findings. Therefore generic or retrieval-based reports can achieve nontrivial reference similarity.
+**Lingshu** (the generalist under test) LASA Team et al., *Lingshu: A Generalist Foundation Model for Unified Multimodal Medical Understanding and Reasoning*, 2025 [https://arxiv.org/abs/2506.07044](https://arxiv.org/abs/2506.07044) · [https://alibaba-damo-academy.github.io/lingshu/](https://alibaba-damo-academy.github.io/lingshu/)
 
-Search:
+**MAIRA-2** (the specialist, used as positive control) Bannur et al., *MAIRA-2: Grounded Radiology Report Generation*, 2024 [https://arxiv.org/abs/2406.04449](https://arxiv.org/abs/2406.04449)
 
-- https://scholar.google.com/scholar?q=MIMIC-CXR+template+baseline+report+generation
-- https://scholar.google.com/scholar?q=MIMIC-CXR+retrieval+baseline+report+generation
+MAIRA-2 takes structured inputs: frontal and lateral images, prior study and report, and the indication, technique and comparison sections. It cannot run without an image, which is why its C4 and C5 used the blank placeholder.
 
-Relevant baselines include:
+**Candidate third model: MedGemma** Sellergren et al., *MedGemma Technical Report* [https://arxiv.org/abs/2507.05201](https://arxiv.org/abs/2507.05201) *(taken from the reference list of Lotfinia et al.)*
 
-- fixed normal templates,
-- frequent-finding templates,
-- nearest-neighbour retrieval,
-- report retrieval,
-- language-only generation.
-
-These are empirical estimates of the population prior.
-
-C5 is especially interesting because it estimates this prior **inside the same trained multimodal model**.
+Including MedGemma would make results directly comparable with both Lotfinia et al. and ModaLens.
 
 ---
 
-# 11. Why conventional reference metrics are insufficient
+## 10. Counterfactual training in report generation (not evaluation)
 
-| Metric | What it measures | What it does not prove |
-|---|---|---|
-| BLEU | n-gram overlap | image use |
-| ROUGE | lexical overlap | image use |
-| CIDEr | consensus similarity | image use |
-| RadGraph F1 | clinical entities/relations | image provenance |
-| RadCliQ | report quality | image provenance |
-| GREEN | clinical errors | image provenance |
-| LLM judge | semantic/clinical similarity | image provenance |
-| CheXbert agreement | extracted findings | image provenance |
+**Li et al., Contrastive Learning with Counterfactual Explanations for Radiology Report Generation (CoFE)** (ECCV 2024) [https://arxiv.org/abs/2407.14474](https://arxiv.org/abs/2407.14474)
 
-The proposed framework should therefore **not replace** these metrics.
-
-Instead:
-
-> Apply clinically meaningful metrics across controlled visual interventions.
+CoFE builds counterfactual images by swapping patches between similar images with different diagnoses, and uses them to *train* report generators to avoid spurious features. It shares the counterfactual vocabulary but is a training method, not an audit, so cite it to head off reviewer confusion.
 
 ---
 
-# 12. The strongest potential novelty bubble
+## 11. Shortcut learning in chest X-ray models
 
-The most promising research direction is:
+This motivates the metadata condition (C4) and view-stratified analysis. The following are cited from the reference list of Lotfinia et al.; their links have not been individually verified here.
 
-## Intervention-based clinical grounding evaluation for free-text medical VLM generation
+- Geirhos et al., *Shortcut learning in deep neural networks*, Nature Machine Intelligence 2020.
+- DeGrave, Janizek & Lee, *AI for radiographic COVID-19 detection selects shortcuts over signal*, Nature Machine Intelligence 2021.
+- Zech et al., *Variable generalization performance of a deep learning model to detect pneumonia in chest radiographs*, PLoS Medicine 2018.
 
-The proposed framework:
-
-1. keeps the target study and prompt fixed,
-2. replaces the image,
-3. removes the image,
-4. scores the result against the target reference,
-5. scores swapped-image outputs against both source and target references,
-6. extracts clinical findings,
-7. separates findings by specificity/information level,
-8. compares a generalist model with a specialist positive control.
-
-The important conceptual distinction is:
-
-**Clinical correctness ≠ image dependence**
-
-and:
-
-**Reference agreement ≠ evidence that the image was used.**
+Most shortcut-learning work concerns classifiers, not free-text generation.
 
 ---
 
-# 13. Information tiers: a promising refinement
+## 12. Gap analysis
 
-A binary "grounded / not grounded" label is probably too crude.
+| Question | Status in the literature (as of Oct 2026) |
+| --- | --- |
+| Do medical VLMs exploit language priors? | Established |
+| Image swap to test image use in chest X-ray VLMs | Done for question answering (Lotfinia et al.; ModaLens) |
+| Text-only baselines matched to multimodal models | Done for question answering (Lotfinia et al.) |
+| Image swap and ablation applied to **free-text report generation** | **Not found**; named as future work by Lotfinia et al. |
+| Swapped outputs scored against **both source and target references** | **Not found** |
+| Image dependence measured **by finding tier** in generated reports | **Not found** for generation (finding-level results exist for question answering) |
+| Generalist vs specialist on an identical intervention protocol for generation | **Not found** |
+| High reference agreement shown alongside low image dependence in generation | **Not found**; shown for question answering accuracy |
 
-Instead classify generated clinical content into tiers.
-
-### Tier 0 — Generic language
-
-Examples:
-
-- "The heart size is within normal limits."
-- "No acute cardiopulmonary abnormality."
-- generic report structure.
-
-Likely to be strongly supported by language priors.
-
-### Tier 1 — Common findings
-
-Examples:
-
-- cardiomegaly,
-- mild bibasilar atelectasis,
-- pleural effusion.
-
-More informative but still common in MIMIC.
-
-### Tier 2 — Specific findings
-
-Examples:
-
-- focal right lower-lobe opacity,
-- specific pleural abnormality,
-- specific device placement.
-
-Expected to depend more strongly on the image.
-
-### Tier 3 — Highly discriminative findings
-
-Rare, anatomically specific, or study-specific findings.
-
-These provide the strongest evidence of actual image use.
-
-This makes the study more informative than a simple defect/no-defect evaluation.
+This search was targeted, not exhaustive. Before submission, repeat it on arXiv, medRxiv and the MICCAI, MIDL and ML4H proceedings from 2025 onward. The space is moving fast, and a report-generation extension by another group is plausible.
 
 ---
 
-# 14. Potential metric: Image-Conditional Clinical Information
+## 13. Proposed contribution and quantities
 
-A useful conceptual metric is:
+**Two-reference scoring (the central method).** For C2, compute S(C2, R_source) − S(C2, R_target). Reading the image predicts a clearly positive value; reliance on the prior predicts about zero. This is what makes interventional auditing work for free text, where there is no single answer to flip.
 
-\[
-ICCI = S(C1,R_{target}) - S(C5,R_{target})
-\]
+**Agreement attributable to the image:**
 
-where `S` is a clinically meaningful score.
+ICCI = S(C1, R_target) − S(C_noinfo, R_target)
 
-A finding-level version could be:
+where C_noinfo is C5 for models that accept no image and C3 otherwise. This reports what the image contributes beyond the model's own prior. It should be presented as a proposed analysis quantity, not an established metric.
 
-\[
-ICCI_k =
-P(finding_k|C1)-P(finding_k|C5)
-\]
+**Finding tiers.** Score findings separately by how guessable they are:
 
-This asks:
+- **Tier 0:** generic language ("no acute cardiopulmonary process").
+- **Tier 1:** common findings (cardiomegaly, effusion, atelectasis).
+- **Tier 2:** specific findings (laterality, focal opacities, named devices and their position).
+- **Tier 3:** rare or study-specific findings.
 
-> Which types of clinical information disappear when the image disappears?
+The prediction is that image dependence rises with tier, and that prior-driven models earn their agreement mostly in Tiers 0 and 1. This connects directly to the finding-level heterogeneity Lotfinia et al. report for question answering.
 
-A source-following quantity for C2 could be:
-
-\[
-ImageFollow_k =
-P(finding_k|C2)-P(finding_k|C5)
-\]
-
-with the C2 output additionally compared against the source and target studies.
-
-These should initially be treated as proposed analysis quantities, not established metrics.
+**Positive control.** A specialist model (MAIRA-2) must show the effects for a null result in another model to count as evidence.
 
 ---
 
-# 15. Wrong-reference control
+## 14. Design for the scaled study
 
-For C2, calculate:
-
-- output vs target reference,
-- output vs source reference.
-
-Then examine:
-
-\[
-S(C2,R_{source}) \quad vs \quad S(C2,R_{target})
-\]
-
-If source agreement is clearly larger, the model followed the supplied source image.
-
-If source and target agreement are similar, the output may be dominated by generic language/population priors.
-
-This is potentially one of the cleanest parts of the framework.
+1. **Sample.** About 100 MIMIC-CXR test studies, chosen by a committed, seeded script with a mix of normal and abnormal cases.
+2. **Pairs.** Deliberately contrasting pairs (opposite-label, differing devices and laterality), plus a smaller set of same-label pairs for comparability with Lotfinia et al.
+3. **Models.** Lingshu-7B, MAIRA-2 and MedGemma (or another open generalist).
+4. **Conditions.** C1–C5 as now. Add an irrelevant-change control and optionally gray and noise blanks, to test whether the black image is simply out of distribution.
+5. **Metrics.** The LLM judge plus CheXbert labels or RadGraph F1. Report agreement between the two.
+6. **Human validation.** A blinded subset of 50–100 items, with a second rater if possible, and κ reported.
+7. **Preregistered primary outcome.** The difference in source-following between the models.
+8. **Secondary analyses.** Results by finding tier, by view (PA vs AP), by normal vs abnormal, and the attributable-agreement quantity.
 
 ---
 
-# 16. Experiments still needed
-
-## A. Reproducibility
-
-Repeat selected C1/C2 conditions.
-
-Goal: quantify generation variance and determine whether observed effects are input-driven.
-
-## B. Normal/abnormal stratification
-
-Separate studies by clinical abnormality.
-
-Goal: determine whether C5 scores well because common findings dominate the dataset.
-
-## C. Human C2 source-following
-
-Blind human comparison of:
-
-- target reference,
-- source reference,
-- C2 output.
-
-Goal: validate the LLM judge.
-
-## D. MAIRA-2 positive control
-
-Run the same 20 × 5 intervention matrix.
-
-Goal: establish that the protocol can detect strong image dependence when it exists.
-
-## E. CheXbert or equivalent structured metric
-
-Compare extracted findings across C1–C5.
-
-Goal: reduce dependence on the LLM judge.
-
-## F. Information-tier analysis
-
-Measure intervention effects separately for generic, common, specific, and highly discriminative findings.
-
-## G. Scale-up
-
-Only after the protocol demonstrates sensitivity.
-
-Then expand to 100+ studies using a committed selection script and fixed seed.
-
----
-
-# 17. Critical novelty questions
-
-Before finalizing the paper, verify these individually:
-
-1. Has any paper performed **image swapping** on medical report-generation VLMs?
-2. Has any paper performed **blank/no-image ablation** on medical report-generation VLMs?
-3. Has anyone combined swapping and ablation into one controlled matrix?
-4. Has anyone scored swapped outputs against both **source and target references**?
-5. Has anyone measured image dependence at the **clinical finding level**?
-6. Has anyone separated generic/common findings from study-specific findings?
-7. Has anyone compared a generalist medical VLM with a chest-X-ray specialist using the same intervention protocol?
-8. Has anyone demonstrated high conventional report scores alongside low measured image dependence?
-
-If questions 4–8 are largely unanswered, that is the most promising novelty area.
-
----
-
-# 18. Recommended framing
+## 15. Recommended framing
 
 Avoid:
 
-> "Medical VLMs hallucinate because they don't look at images."
+> "Medical VLMs don't look at images."
 
-Too broad and unsupported by the current pilot.
+This is too broad, already partly shown for question answering, and contradicted by MAIRA-2.
 
 Prefer:
 
-> **"Reference agreement is not sufficient evidence of visual grounding in medical report generation."**
+> **"Reference agreement is not evidence of visual grounding in medical report generation."**
 
-Then introduce controlled visual interventions as the measurement framework.
+Position the paper as **extending interventional auditing from question answering (Lotfinia et al., 2026) to free-text report generation**. The contribution is what generation requires that question answering does not: two-reference scoring, tiered findings, and the dissociation between agreement and image dependence.
 
-The central scientific question becomes:
+**Suggested structure:**
 
-> **When a medical VLM produces a clinically plausible report, how much of that report actually depends on the image it was given?**
-
----
-
-# 19. Suggested paper structure
-
-## Introduction
-
-- Medical VLMs are increasingly evaluated using report-reference agreement.
-- Reference agreement measures output similarity, not information provenance.
-- Medical reports contain strong population and language priors.
-- Introduce controlled visual interventions.
-- Measure clinical correctness and image dependence separately.
-
-## Related Work
-
-- Language priors.
-- Multimodal attribution.
-- Medical VLM hallucination.
-- Radiology report-generation metrics.
-- Shortcut/counterfactual evaluation.
-
-## Method
-
-- Dataset.
-- Models.
-- Intervention matrix.
-- Reference controls.
-- Clinical finding extraction.
-- Information tiers.
-- Image-dependence metrics.
-
-## Experiments
-
-- Generalist model.
-- Specialist positive control.
-- Reproducibility.
-- Normal/abnormal stratification.
-- Human validation.
-
-## Results
-
-Primary result:
-
-> Conventional reference agreement and measured image dependence can diverge.
-
-Secondary result:
-
-> The divergence can be localized by the specificity/information level of generated findings.
+- **Introduction:** reference agreement measures similarity, not where content came from; a summary of the question-answering audits; the gap in generation.
+- **Related work:** language priors, modality contribution, medical VLM reliability probes, report metrics, 2026 interventional audits.
+- **Method:** the intervention matrix, two-reference scoring, finding tiers, quantities, positive control.
+- **Experiments:** three models, reproducibility, stratification, human validation.
+- **Results:** agreement and image dependence diverge, and the divergence concentrates in guessable findings.
 
 ---
 
-# 20. Final assessment
+## 16. Link verification (1 October 2026)
 
-The established part of the literature is:
+| Item | Link | Status |
+| --- | --- | --- |
+| Lotfinia et al. 2026 | [https://arxiv.org/abs/2606.17710](https://arxiv.org/abs/2606.17710) | Verified (full text read) |
+| ModaLens | [https://arxiv.org/abs/2609.15635](https://arxiv.org/abs/2609.15635) | Verified via paper page |
+| MC-CXR | [https://arxiv.org/abs/2608.24118](https://arxiv.org/abs/2608.24118) | Verified |
+| Medical Context Distorts Decisions | [https://arxiv.org/abs/2605.17436](https://arxiv.org/abs/2605.17436) | Verified |
+| Auditing reference agreement across institutions | [https://arxiv.org/abs/2608.07550](https://arxiv.org/abs/2608.07550) | Verified |
+| VQA v2 (Goyal) | [https://arxiv.org/abs/1612.00837](https://arxiv.org/abs/1612.00837) | Verified |
+| VQA-CP (Agrawal) | [https://arxiv.org/abs/1712.00377](https://arxiv.org/abs/1712.00377) | Verified — **corrected** (was 1811.03347) |
+| Perceptual Score (Gat) | [https://arxiv.org/abs/2110.14375](https://arxiv.org/abs/2110.14375) | Verified — **title and link corrected** |
+| MM-SHAP | [https://arxiv.org/abs/2212.08158](https://arxiv.org/abs/2212.08158) | Verified — **corrected** (was 2303.13425) |
+| CheXbert | [https://arxiv.org/abs/2004.09167](https://arxiv.org/abs/2004.09167) | Verified (newly added) |
+| RadGraph | [https://arxiv.org/abs/2106.14463](https://arxiv.org/abs/2106.14463) | Verified |
+| RadCliQ (Yu et al.) | [https://doi.org/10.1101/2022.08.30.22279318](https://doi.org/10.1101/2022.08.30.22279318) | Verified — **title and link corrected** (was 2203.16635) |
+| GREEN | [https://arxiv.org/abs/2405.03595](https://arxiv.org/abs/2405.03595) | Verified — **title corrected** |
+| ReXrank | [https://arxiv.org/abs/2411.15122](https://arxiv.org/abs/2411.15122) | Verified — **replaced** the unverified GitHub link |
+| MAIRA-2 | [https://arxiv.org/abs/2406.04449](https://arxiv.org/abs/2406.04449) | Verified — **corrected** (was 2406.04445) |
+| Lingshu | [https://arxiv.org/abs/2506.07044](https://arxiv.org/abs/2506.07044) | Verified (replaced search link) |
+| CoFE | [https://arxiv.org/abs/2407.14474](https://arxiv.org/abs/2407.14474) | Verified (newly added) |
+| ProbMed | [https://aclanthology.org/2025.findings-acl.981/](https://aclanthology.org/2025.findings-acl.981/) | From Lotfinia et al. reference list |
+| MediConfusion | [https://openreview.net/forum?id=H9UnNgdq0g](https://openreview.net/forum?id=H9UnNgdq0g) | From Lotfinia et al. reference list |
+| MedGemma report | [https://arxiv.org/abs/2507.05201](https://arxiv.org/abs/2507.05201) | From Lotfinia et al. reference list |
+| Tong; Geirhos; DeGrave; Zech | — | Cited without links; verify before use |
 
-- models can exploit language priors,
-- multimodal models can fail to use visual information,
-- medical VLMs hallucinate,
-- radiology report metrics have limitations,
-- and modality attribution/ablation are established ideas.
-
-The promising research gap is the **combination**:
-
-> **image swap + image ablation + wrong-reference controls + clinical finding-level evaluation + information-tier analysis + specialist positive control**
-
-for **free-text medical report generation**.
-
-That is a sharper and more testable research question than simply asking whether a medical VLM uses language priors.
-
----
-
-## Verification note
-
-This document is a research map and proposal framing. Before using it as a final related-work section or making a publication-level novelty claim, each candidate paper should be individually checked against the exact protocol. Search-result pages are included where the canonical paper URL still needs confirmation; those should not be used as final bibliography entries.
-
-The next literature-review pass should focus specifically on papers from **2022 onward** that combine:
-
-- medical report generation,
-- image swapping/permutation,
-- missing/blank images,
-- clinical finding extraction,
-- and counterfactual evaluation.
-
-That narrower search is the most likely route to establishing whether the proposed intervention matrix is genuinely underexplored.
+The original version contained Google Scholar and arXiv search-result URLs in several places, and section 4 referred to "CARES-style" evaluations without a citation. Search URLs are not citable, so those entries were removed. Add CARES back with a verified link if needed.
