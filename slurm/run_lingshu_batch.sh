@@ -11,7 +11,7 @@
 
 set -e
 
-PROJECT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 PYTHON="${PYTHON:-python3}"
 
 cd "$PROJECT" || exit 1

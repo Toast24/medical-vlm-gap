@@ -75,3 +75,12 @@ data/project_a_pilot_conditions.jsonl
 data/c2_mismatch_mapping.jsonl
 
 # Manual annotations containing model outputs
+
+# --- added: private / server-specific ---
+results/
+logs/
+models/
+data/*
+!data/project_a_public_manifest.jsonl
+slurm/local.env
+*.gguf

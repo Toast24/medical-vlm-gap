@@ -10,7 +10,7 @@
 
 set -u
 
-PROJECT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 
 # Override this if the cluster provides Python through a module/conda environment.
 PYTHON="${PYTHON:-python3}"
