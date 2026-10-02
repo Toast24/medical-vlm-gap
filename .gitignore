@@ -84,3 +84,4 @@ data/*
 !data/project_a_public_manifest.jsonl
 slurm/local.env
 *.gguf
+!data/project_a_scaled_public_manifest.jsonl

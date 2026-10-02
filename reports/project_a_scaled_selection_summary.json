@@ -1,0 +1,43 @@
+{
+  "seed": 2026,
+  "n_pairs": 100,
+  "pool_size": 240,
+  "source_pool": 798,
+  "pool_normal": 59,
+  "pool_abnormal": 178,
+  "pair_types": {
+    "contrast": 80,
+    "same_label": 20
+  },
+  "normal_targets": 30,
+  "mean_contrast": {
+    "contrast": 1.5,
+    "same_label": 0.153
+  },
+  "mean_jaccard": {
+    "contrast": 0.0,
+    "same_label": 0.872
+  },
+  "target_finding_counts": {
+    "Support Devices": 30,
+    "Pleural Effusion": 25,
+    "Lung Opacity": 22,
+    "Atelectasis": 19,
+    "Cardiomegaly": 16,
+    "Pneumonia": 14,
+    "Edema": 13,
+    "Fracture": 7,
+    "Pneumothorax": 6,
+    "Lung Lesion": 5,
+    "Enlarged Cardiomediastinum": 3,
+    "Pleural Other": 2,
+    "Consolidation": 1
+  },
+  "reference_methods": {
+    "findings+impression": 87,
+    "findings": 72,
+    "impression": 41
+  },
+  "images_to_download": 0,
+  "excluded_pilot_studies": 40
+}
