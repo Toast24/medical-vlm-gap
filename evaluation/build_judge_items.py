@@ -1,11 +1,11 @@
-import json, random, hashlib
+import json, random, hashlib, os
 from pathlib import Path
 import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
-COND = ROOT / "data/project_a_pilot_conditions.jsonl"
+COND = Path(os.environ.get("JUDGE_CONDITIONS", ROOT / "data/project_a_pilot_conditions.jsonl"))
 import os
 RES = Path(os.environ.get("JUDGE_RESULTS", ROOT / "results/project_a_lingshu_pilot_clean.jsonl"))
-SRC_REFS = ROOT / "results/project_a_source_references.jsonl"
+SRC_REFS = Path(os.environ.get("JUDGE_SRC_REFS", ROOT / "results/project_a_source_references.jsonl"))
 OUT = Path(os.environ.get("JUDGE_DIR", ROOT / "results/project_a_judge")); OUT.mkdir(parents=True, exist_ok=True)
 load = lambda p: [json.loads(l) for l in open(p) if l.strip()]
 norm = lambda x: str(x).strip().lstrip("sS").split(".")[0]

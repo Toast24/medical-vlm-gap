@@ -1,0 +1,880 @@
+{
+  "info": {
+    "Lingshu": {
+      "judged": 683,
+      "items": 700,
+      "failed": 17
+    },
+    "MAIRA-2": {
+      "judged": 678,
+      "items": 700,
+      "failed": 22
+    }
+  },
+  "primary": {
+    "outcome": "source_following, MAIRA-2 minus Lingshu, contrast pairs",
+    "n": 71,
+    "mean": 0.282,
+    "ci": [
+      -0.099,
+      0.662
+    ],
+    "p": 0.1378
+  },
+  "within": [
+    {
+      "model": "Lingshu",
+      "effect": "source_following",
+      "stratum": "all",
+      "n": 94,
+      "mean": 0.085,
+      "ci": [
+        -0.202,
+        0.362
+      ],
+      "p": 0.4728,
+      "q_bh": 0.5384
+    },
+    {
+      "model": "Lingshu",
+      "effect": "source_following",
+      "stratum": "contrast",
+      "n": 75,
+      "mean": 0.16,
+      "ci": [
+        -0.16,
+        0.48
+      ],
+      "p": 0.2683,
+      "q_bh": 0.3367
+    },
+    {
+      "model": "Lingshu",
+      "effect": "source_following",
+      "stratum": "same_label",
+      "n": 19,
+      "mean": -0.211,
+      "ci": [
+        -0.737,
+        0.316
+      ],
+      "p": 0.4795,
+      "q_bh": 0.5384
+    },
+    {
+      "model": "Lingshu",
+      "effect": "source_following",
+      "stratum": "normal",
+      "n": 28,
+      "mean": -0.143,
+      "ci": [
+        -0.5,
+        0.214
+      ],
+      "p": 0.4795,
+      "q_bh": 0.5384
+    },
+    {
+      "model": "Lingshu",
+      "effect": "source_following",
+      "stratum": "abnormal",
+      "n": 66,
+      "mean": 0.182,
+      "ci": [
+        -0.167,
+        0.545
+      ],
+      "p": 0.2683,
+      "q_bh": 0.3367
+    },
+    {
+      "model": "Lingshu",
+      "effect": "source_following",
+      "stratum": "PA",
+      "n": 36,
+      "mean": -0.111,
+      "ci": [
+        -0.556,
+        0.333
+      ],
+      "p": 0.6374,
+      "q_bh": 0.6835
+    },
+    {
+      "model": "Lingshu",
+      "effect": "source_following",
+      "stratum": "AP",
+      "n": 58,
+      "mean": 0.207,
+      "ci": [
+        -0.138,
+        0.552
+      ],
+      "p": 0.2007,
+      "q_bh": 0.2677
+    },
+    {
+      "model": "Lingshu",
+      "effect": "own_vs_other",
+      "stratum": "all",
+      "n": 94,
+      "mean": 0.468,
+      "ci": [
+        0.213,
+        0.723
+      ],
+      "p": 0.0005,
+      "q_bh": 0.0015
+    },
+    {
+      "model": "Lingshu",
+      "effect": "own_vs_other",
+      "stratum": "contrast",
+      "n": 76,
+      "mean": 0.605,
+      "ci": [
+        0.342,
+        0.868
+      ],
+      "p": 0.0001,
+      "q_bh": 0.0003
+    },
+    {
+      "model": "Lingshu",
+      "effect": "own_vs_other",
+      "stratum": "same_label",
+      "n": 18,
+      "mean": -0.111,
+      "ci": [
+        -0.667,
+        0.444
+      ],
+      "p": 0.7055,
+      "q_bh": 0.7282
+    },
+    {
+      "model": "Lingshu",
+      "effect": "own_vs_other",
+      "stratum": "normal",
+      "n": 30,
+      "mean": 0.8,
+      "ci": [
+        0.4,
+        1.2
+      ],
+      "p": 0.0013,
+      "q_bh": 0.0036
+    },
+    {
+      "model": "Lingshu",
+      "effect": "own_vs_other",
+      "stratum": "abnormal",
+      "n": 64,
+      "mean": 0.312,
+      "ci": [
+        0.0,
+        0.625
+      ],
+      "p": 0.0499,
+      "q_bh": 0.0798
+    },
+    {
+      "model": "Lingshu",
+      "effect": "own_vs_other",
+      "stratum": "PA",
+      "n": 37,
+      "mean": 0.541,
+      "ci": [
+        0.162,
+        0.919
+      ],
+      "p": 0.0124,
+      "q_bh": 0.0248
+    },
+    {
+      "model": "Lingshu",
+      "effect": "own_vs_other",
+      "stratum": "AP",
+      "n": 57,
+      "mean": 0.421,
+      "ci": [
+        0.105,
+        0.737
+      ],
+      "p": 0.0143,
+      "q_bh": 0.0262
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_blank",
+      "stratum": "all",
+      "n": 94,
+      "mean": 0.266,
+      "ci": [
+        0.064,
+        0.479
+      ],
+      "p": 0.0075,
+      "q_bh": 0.0156
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_blank",
+      "stratum": "contrast",
+      "n": 77,
+      "mean": 0.273,
+      "ci": [
+        0.039,
+        0.506
+      ],
+      "p": 0.0136,
+      "q_bh": 0.0256
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_blank",
+      "stratum": "same_label",
+      "n": 17,
+      "mean": 0.235,
+      "ci": [
+        -0.235,
+        0.706
+      ],
+      "p": 0.3173,
+      "q_bh": 0.3832
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_blank",
+      "stratum": "normal",
+      "n": 30,
+      "mean": 0.033,
+      "ci": [
+        -0.3,
+        0.367
+      ],
+      "p": 0.6675,
+      "q_bh": 0.7003
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_blank",
+      "stratum": "abnormal",
+      "n": 64,
+      "mean": 0.375,
+      "ci": [
+        0.125,
+        0.625
+      ],
+      "p": 0.0073,
+      "q_bh": 0.0156
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_blank",
+      "stratum": "PA",
+      "n": 37,
+      "mean": 0.243,
+      "ci": [
+        -0.108,
+        0.595
+      ],
+      "p": 0.1434,
+      "q_bh": 0.1996
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_blank",
+      "stratum": "AP",
+      "n": 57,
+      "mean": 0.281,
+      "ci": [
+        0.018,
+        0.544
+      ],
+      "p": 0.0249,
+      "q_bh": 0.0419
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_noinfo",
+      "stratum": "all",
+      "n": 96,
+      "mean": -0.01,
+      "ci": [
+        -0.25,
+        0.229
+      ],
+      "p": 0.9919,
+      "q_bh": 1.0
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_noinfo",
+      "stratum": "contrast",
+      "n": 77,
+      "mean": 0.091,
+      "ci": [
+        -0.169,
+        0.351
+      ],
+      "p": 0.4408,
+      "q_bh": 0.5224
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_noinfo",
+      "stratum": "same_label",
+      "n": 19,
+      "mean": -0.421,
+      "ci": [
+        -0.842,
+        0.0
+      ],
+      "p": 0.1025,
+      "q_bh": 0.1561
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_noinfo",
+      "stratum": "normal",
+      "n": 30,
+      "mean": 0.3,
+      "ci": [
+        -0.033,
+        0.633
+      ],
+      "p": 0.0704,
+      "q_bh": 0.11
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_noinfo",
+      "stratum": "abnormal",
+      "n": 66,
+      "mean": -0.152,
+      "ci": [
+        -0.455,
+        0.152
+      ],
+      "p": 0.3173,
+      "q_bh": 0.3832
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_noinfo",
+      "stratum": "PA",
+      "n": 37,
+      "mean": 0.108,
+      "ci": [
+        -0.27,
+        0.486
+      ],
+      "p": 0.5637,
+      "q_bh": 0.622
+    },
+    {
+      "model": "Lingshu",
+      "effect": "image_vs_noinfo",
+      "stratum": "AP",
+      "n": 59,
+      "mean": -0.085,
+      "ci": [
+        -0.39,
+        0.203
+      ],
+      "p": 0.6408,
+      "q_bh": 0.6835
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "source_following",
+      "stratum": "all",
+      "n": 93,
+      "mean": 0.398,
+      "ci": [
+        0.108,
+        0.688
+      ],
+      "p": 0.0058,
+      "q_bh": 0.0128
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "source_following",
+      "stratum": "contrast",
+      "n": 74,
+      "mean": 0.486,
+      "ci": [
+        0.176,
+        0.797
+      ],
+      "p": 0.002,
+      "q_bh": 0.005
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "source_following",
+      "stratum": "same_label",
+      "n": 19,
+      "mean": 0.053,
+      "ci": [
+        -0.632,
+        0.737
+      ],
+      "p": 1.0,
+      "q_bh": 1.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "source_following",
+      "stratum": "normal",
+      "n": 29,
+      "mean": 0.241,
+      "ci": [
+        -0.276,
+        0.759
+      ],
+      "p": 0.2516,
+      "q_bh": 0.3287
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "source_following",
+      "stratum": "abnormal",
+      "n": 64,
+      "mean": 0.469,
+      "ci": [
+        0.125,
+        0.812
+      ],
+      "p": 0.0134,
+      "q_bh": 0.0256
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "source_following",
+      "stratum": "PA",
+      "n": 35,
+      "mean": 0.543,
+      "ci": [
+        0.057,
+        1.0
+      ],
+      "p": 0.0158,
+      "q_bh": 0.0281
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "source_following",
+      "stratum": "AP",
+      "n": 58,
+      "mean": 0.31,
+      "ci": [
+        -0.069,
+        0.672
+      ],
+      "p": 0.1158,
+      "q_bh": 0.1692
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "own_vs_other",
+      "stratum": "all",
+      "n": 95,
+      "mean": 0.811,
+      "ci": [
+        0.558,
+        1.063
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "own_vs_other",
+      "stratum": "contrast",
+      "n": 76,
+      "mean": 0.816,
+      "ci": [
+        0.553,
+        1.079
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "own_vs_other",
+      "stratum": "same_label",
+      "n": 19,
+      "mean": 0.789,
+      "ci": [
+        0.105,
+        1.421
+      ],
+      "p": 0.0483,
+      "q_bh": 0.0792
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "own_vs_other",
+      "stratum": "normal",
+      "n": 30,
+      "mean": 1.2,
+      "ci": [
+        0.867,
+        1.533
+      ],
+      "p": 0.0,
+      "q_bh": 0.0001
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "own_vs_other",
+      "stratum": "abnormal",
+      "n": 65,
+      "mean": 0.631,
+      "ci": [
+        0.308,
+        0.954
+      ],
+      "p": 0.0006,
+      "q_bh": 0.0017
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "own_vs_other",
+      "stratum": "PA",
+      "n": 37,
+      "mean": 1.027,
+      "ci": [
+        0.595,
+        1.405
+      ],
+      "p": 0.0001,
+      "q_bh": 0.0005
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "own_vs_other",
+      "stratum": "AP",
+      "n": 58,
+      "mean": 0.672,
+      "ci": [
+        0.362,
+        0.983
+      ],
+      "p": 0.0002,
+      "q_bh": 0.0009
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_blank",
+      "stratum": "all",
+      "n": 95,
+      "mean": 0.895,
+      "ci": [
+        0.673,
+        1.116
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_blank",
+      "stratum": "contrast",
+      "n": 76,
+      "mean": 0.789,
+      "ci": [
+        0.526,
+        1.026
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_blank",
+      "stratum": "same_label",
+      "n": 19,
+      "mean": 1.316,
+      "ci": [
+        0.895,
+        1.684
+      ],
+      "p": 0.0005,
+      "q_bh": 0.0015
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_blank",
+      "stratum": "normal",
+      "n": 30,
+      "mean": 0.8,
+      "ci": [
+        0.333,
+        1.2
+      ],
+      "p": 0.0027,
+      "q_bh": 0.0064
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_blank",
+      "stratum": "abnormal",
+      "n": 65,
+      "mean": 0.938,
+      "ci": [
+        0.677,
+        1.2
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_blank",
+      "stratum": "PA",
+      "n": 37,
+      "mean": 0.973,
+      "ci": [
+        0.595,
+        1.351
+      ],
+      "p": 0.0001,
+      "q_bh": 0.0005
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_blank",
+      "stratum": "AP",
+      "n": 58,
+      "mean": 0.845,
+      "ci": [
+        0.569,
+        1.103
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_noinfo",
+      "stratum": "all",
+      "n": 95,
+      "mean": 0.895,
+      "ci": [
+        0.673,
+        1.116
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_noinfo",
+      "stratum": "contrast",
+      "n": 76,
+      "mean": 0.789,
+      "ci": [
+        0.526,
+        1.026
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_noinfo",
+      "stratum": "same_label",
+      "n": 19,
+      "mean": 1.316,
+      "ci": [
+        0.895,
+        1.684
+      ],
+      "p": 0.0005,
+      "q_bh": 0.0015
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_noinfo",
+      "stratum": "normal",
+      "n": 30,
+      "mean": 0.8,
+      "ci": [
+        0.333,
+        1.2
+      ],
+      "p": 0.0027,
+      "q_bh": 0.0064
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_noinfo",
+      "stratum": "abnormal",
+      "n": 65,
+      "mean": 0.938,
+      "ci": [
+        0.677,
+        1.2
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_noinfo",
+      "stratum": "PA",
+      "n": 37,
+      "mean": 0.973,
+      "ci": [
+        0.595,
+        1.351
+      ],
+      "p": 0.0001,
+      "q_bh": 0.0005
+    },
+    {
+      "model": "MAIRA-2",
+      "effect": "image_vs_noinfo",
+      "stratum": "AP",
+      "n": 58,
+      "mean": 0.845,
+      "ci": [
+        0.569,
+        1.103
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    }
+  ],
+  "between": [
+    {
+      "comparison": "MAIRA-2 - Lingshu",
+      "effect": "source_following",
+      "stratum": "all",
+      "n": 90,
+      "mean": 0.278,
+      "ci": [
+        -0.067,
+        0.622
+      ],
+      "p": 0.1163,
+      "q_bh": 0.1692
+    },
+    {
+      "comparison": "MAIRA-2 - Lingshu",
+      "effect": "source_following",
+      "stratum": "contrast",
+      "n": 71,
+      "mean": 0.282,
+      "ci": [
+        -0.099,
+        0.662
+      ],
+      "p": 0.1378,
+      "q_bh": 0.1961
+    },
+    {
+      "comparison": "MAIRA-2 - Lingshu",
+      "effect": "own_vs_other",
+      "stratum": "all",
+      "n": 91,
+      "mean": 0.363,
+      "ci": [
+        0.044,
+        0.681
+      ],
+      "p": 0.0247,
+      "q_bh": 0.0419
+    },
+    {
+      "comparison": "MAIRA-2 - Lingshu",
+      "effect": "own_vs_other",
+      "stratum": "contrast",
+      "n": 74,
+      "mean": 0.243,
+      "ci": [
+        -0.081,
+        0.568
+      ],
+      "p": 0.1599,
+      "q_bh": 0.2177
+    },
+    {
+      "comparison": "MAIRA-2 - Lingshu",
+      "effect": "image_vs_blank",
+      "stratum": "all",
+      "n": 92,
+      "mean": 0.652,
+      "ci": [
+        0.359,
+        0.946
+      ],
+      "p": 0.0001,
+      "q_bh": 0.0005
+    },
+    {
+      "comparison": "MAIRA-2 - Lingshu",
+      "effect": "image_vs_blank",
+      "stratum": "contrast",
+      "n": 76,
+      "mean": 0.539,
+      "ci": [
+        0.197,
+        0.882
+      ],
+      "p": 0.0032,
+      "q_bh": 0.0073
+    },
+    {
+      "comparison": "MAIRA-2 - Lingshu",
+      "effect": "image_vs_noinfo",
+      "stratum": "all",
+      "n": 94,
+      "mean": 0.936,
+      "ci": [
+        0.585,
+        1.277
+      ],
+      "p": 0.0,
+      "q_bh": 0.0
+    },
+    {
+      "comparison": "MAIRA-2 - Lingshu",
+      "effect": "image_vs_noinfo",
+      "stratum": "contrast",
+      "n": 76,
+      "mean": 0.697,
+      "ci": [
+        0.316,
+        1.079
+      ],
+      "p": 0.0013,
+      "q_bh": 0.0036
+    }
+  ],
+  "means": {
+    "Lingshu": {
+      "C1_vs_other": 0.857,
+      "C1_vs_own": 1.292,
+      "C2_vs_source": 1.144,
+      "C2_vs_target": 1.031,
+      "C3_vs_own": 1.031,
+      "C4_vs_own": 0.929,
+      "C5_vs_own": 1.29
+    },
+    "MAIRA-2": {
+      "C1_vs_other": 0.566,
+      "C1_vs_own": 1.365,
+      "C2_vs_source": 1.398,
+      "C2_vs_target": 0.968,
+      "C3_vs_own": 0.474,
+      "C4_vs_own": 0.577,
+      "C5_vs_own": 0.577
+    }
+  }
+}
