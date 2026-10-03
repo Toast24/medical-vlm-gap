@@ -6,6 +6,9 @@ from scipy.stats import wilcoxon
 ROOT = Path(__file__).resolve().parents[1]
 MODELS = {"Lingshu": "lingshu", "MAIRA-2": "maira2", "MedGemma-27B": "medgemma"}
 NOINFO = {"Lingshu": "C5_vs_own", "MAIRA-2": "C3_vs_own", "MedGemma-27B": "C5_vs_own"}  # MAIRA-2 needs an image
+import os
+SCORER = os.environ.get("SCORER", "judge")
+print("scorer:", SCORER)
 norm = lambda x: str(x).strip().lstrip("sS").split(".")[0]
 
 pairs = pd.DataFrame(map(json.loads, open(ROOT / "data/project_a_scaled_pairs.jsonl")))
@@ -27,9 +30,13 @@ def wide(J):
 
 W, info = {}, {}
 for m, tag in MODELS.items():
-    J = ROOT / f"results/project_a_judge_scaled_{tag}"
+    J = ROOT / f"results/project_a_{SCORER}_scaled_{tag}"
     if (J / "key.csv").exists() and glob.glob(str(J / "judge_shard*.jsonl")):
-        w, fails, n = wide(J); W[m] = w.join(meta, how="left"); info[m] = dict(judged=int(w.notna().sum().sum()), items=n, failed=fails)
+        w, fails, n = wide(J)
+        need = {"C1_vs_own", "C1_vs_other", "C2_vs_source", "C2_vs_target", "C3_vs_own", "C4_vs_own", "C5_vs_own"}
+        if not need <= set(w.columns) or len(w) < 50:
+            print(f"{m}: incomplete ({len(w)} studies, roles {sorted(set(w.columns) & need)}), skipped"); continue
+        W[m] = w.join(meta, how="left"); info[m] = dict(judged=int(w.notna().sum().sum()), items=n, failed=fails)
 print("models:", info)
 
 def effects(w, m):
@@ -91,5 +98,5 @@ for eff in ["source_following", "own_vs_other", "image_vs_blank", "image_vs_noin
     print(f"\n-- {eff} --"); print(wt[wt.effect == eff].pivot(index="stratum", columns="model", values="cell").reindex(list(STRATA)).to_string())
 print("\n== between-model ==")
 for r in res["between"]: print(r)
-out = ROOT / "reports/project_a_scaled_results.json"
+out = ROOT / ("reports/project_a_scaled_results.json" if SCORER == "judge" else f"reports/project_a_scaled_results_{SCORER}.json")
 json.dump(res, open(out, "w"), indent=2, default=str); print(f"\nwrote {out}")
