@@ -11,10 +11,12 @@ PROJECT = Path(
     )
 )
 
-PILOT_PATH = PROJECT / "data/project_a_pilot_20.jsonl"
+import os as _os
+N_EXPECTED = int(_os.environ.get("PROJECT_A_N", 20))
+PILOT_PATH = PROJECT / _os.environ.get("PROJECT_A_PILOT", "data/project_a_pilot_20.jsonl")
 MANIFEST_PATH = PROJECT / "data/mimic-cxr-jpg/mimic_cxr_test_manifest.csv"
 METADATA_PATH = PROJECT / "data/mimic-cxr-jpg/mimic-cxr-2.0.0-metadata.csv.gz"
-OUTPUT_PATH = PROJECT / "data/project_a_pilot_conditions.jsonl"
+OUTPUT_PATH = PROJECT / _os.environ.get("PROJECT_A_CONDITIONS_OUT", "data/project_a_pilot_conditions.jsonl")
 
 PROMPT = (
     "Describe this chest X-ray briefly. "
@@ -125,7 +127,7 @@ with open(PILOT_PATH) as f:
         if line.strip()
     ]
 
-if len(pilot_rows) != 20:
+if len(pilot_rows) != N_EXPECTED:
     raise RuntimeError(
         f"Expected 20 pilot studies, found {len(pilot_rows)}"
     )
@@ -297,14 +299,14 @@ for pilot in pilot_rows:
 # ------------------------------------------------------------------
 
 expected_counts = {
-    "C1_real": 20,
-    "C2_mismatched": 20,
-    "C3_blank": 20,
-    "C4_metadata_only": 20,
-    "C5_no_input": 20,
+    "C1_real": N_EXPECTED,
+    "C2_mismatched": N_EXPECTED,
+    "C3_blank": N_EXPECTED,
+    "C4_metadata_only": N_EXPECTED,
+    "C5_no_input": N_EXPECTED,
 }
 
-if len(conditions) != 100:
+if len(conditions) != 5 * N_EXPECTED:
     raise RuntimeError(
         f"Expected 100 records, got {len(conditions)}"
     )

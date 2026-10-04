@@ -85,7 +85,8 @@ expected_conditions = {
 
 actual_conditions = {r["condition"] for r in conditions}
 
-if len(conditions) != 100:
+N_EXPECTED = int(os.environ.get("PROJECT_A_N", 20))
+if len(conditions) != 5 * N_EXPECTED:
     raise RuntimeError(
         f"Expected 100 pilot records, got {len(conditions)}"
     )
@@ -100,7 +101,7 @@ target_studies = {
     for r in conditions
 }
 
-if len(target_studies) != 20:
+if len(target_studies) != N_EXPECTED:
     raise RuntimeError(
         f"Expected 20 target studies, got {len(target_studies)}"
     )
