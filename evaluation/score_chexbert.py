@@ -27,7 +27,7 @@ def labels(text):
 pos = lambda v: {n for n, x in zip(NAMES, v) if x == 1 and n != "No Finding"}
 jac = lambda a, b: 1.0 if not a and not b else len(a & b) / len(a | b)
 
-for tag in ["lingshu", "maira2", "medgemma"]:
+for tag in ["lingshu", "maira2", "medgemma", "qwen", "chexagent"]:
     J = ROOT / f"results/project_a_judge_scaled_{tag}"
     if not (J / "items.jsonl").exists(): print(f"{tag}: no items yet, skipped"); continue
     O = ROOT / f"results/project_a_chexbert_scaled_{tag}"; O.mkdir(parents=True, exist_ok=True)

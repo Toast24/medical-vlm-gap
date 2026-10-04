@@ -4,8 +4,8 @@ from pathlib import Path
 import numpy as np, pandas as pd
 from scipy.stats import wilcoxon
 ROOT = Path(__file__).resolve().parents[1]
-MODELS = {"Lingshu": "lingshu", "MAIRA-2": "maira2", "MedGemma-27B": "medgemma"}
-NOINFO = {"Lingshu": "C5_vs_own", "MAIRA-2": "C3_vs_own", "MedGemma-27B": "C5_vs_own"}  # MAIRA-2 needs an image
+MODELS = {"Lingshu": "lingshu", "MAIRA-2": "maira2", "MedGemma-27B": "medgemma", "Qwen2.5-VL-7B": "qwen", "CheXagent-2-3b": "chexagent"}
+NOINFO = {"Lingshu": "C5_vs_own", "MAIRA-2": "C3_vs_own", "MedGemma-27B": "C5_vs_own", "Qwen2.5-VL-7B": "C5_vs_own", "CheXagent-2-3b": "C5_vs_own"}  # MAIRA-2 needs an image
 import os
 SCORER = os.environ.get("SCORER", "judge")
 print("scorer:", SCORER)

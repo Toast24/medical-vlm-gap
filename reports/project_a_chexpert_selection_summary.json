@@ -1,0 +1,23 @@
+{
+  "dataset": "chexpert",
+  "seed": 2026,
+  "requested_targets": 100,
+  "n_pairs": 100,
+  "pool": 200,
+  "pool_normal": 16,
+  "pool_abnormal": 184,
+  "source_pool": 100,
+  "normal_targets": 16,
+  "pair_types": {
+    "contrast": 85,
+    "same_label": 15
+  },
+  "mean_jaccard": {
+    "contrast": 0.07,
+    "same_label": 0.556
+  },
+  "views": {
+    "AP": 83,
+    "PA": 17
+  }
+}

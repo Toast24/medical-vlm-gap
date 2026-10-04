@@ -1,0 +1,20 @@
+{
+  "dataset": "iu",
+  "seed": 2026,
+  "requested_targets": 350,
+  "n_pairs": 350,
+  "pool": 3826,
+  "pool_normal": 2287,
+  "pool_abnormal": 1539,
+  "source_pool": 3476,
+  "normal_targets": 105,
+  "pair_types": {
+    "contrast": 300,
+    "same_label": 50
+  },
+  "mean_jaccard": {
+    "contrast": 0.004,
+    "same_label": 0.953
+  },
+  "views": {}
+}
