@@ -85,3 +85,4 @@ data/*
 slurm/local.env
 *.gguf
 !data/project_a_scaled_public_manifest.jsonl
+.redivis_token
