@@ -16,4 +16,6 @@ if [ -n "${HOME_OVERRIDE:-}" ]; then
 fi
 nvidia-smi --query-gpu=name,memory.total --format=csv || true
 echo "runner: ${RUNNER:?set RUNNER} | output: ${PROJECT_A_OUTPUT:-default}"
-"$PYTHON_LINGSHU" "$RUNNER"
+PY_VAR=${PY_ENV:-PYTHON_LINGSHU}; PY="${!PY_VAR}"
+echo "python: $PY_VAR -> $PY"
+"$PY" "$RUNNER"
