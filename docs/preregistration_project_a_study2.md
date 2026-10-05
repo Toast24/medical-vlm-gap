@@ -42,3 +42,23 @@ LLM judge (Llama-3.1-8B, blinded, prompt in evaluation/run_judge.py) and CheXber
 
 ## Known limitations (stated in advance)
 No human expert validation (ReXVal used instead); 8B LLM judge; MedGemma in 8-bit; IU frontal-view heuristic; small, fully-used CheXpert pool; possible training-data overlap (contamination table to be reported).
+
+---
+
+## Amendment 1 (committed before any Study 2 output was scored)
+
+**Status at time of amendment:** Study 2 generation partly complete; no Study 2 output has been judged or scored by any scorer. The primary outcome above is unchanged.
+
+**Reason:** exploratory Study 1 results on MIMIC-CXR (Lingshu, MAIRA-2, MedGemma-27B, Qwen2.5-VL-7B; judge and CheXbert) showed a model-level gradient in source-following (MAIRA-2 ≈ MedGemma > Lingshu > Qwen2.5-VL ≈ 0) rather than a clean specialist-versus-generalist split. The following hypotheses, derived from those exploratory results, are added as **pre-specified secondary hypotheses**, tested on IU X-ray and CheXpert only.
+
+**H-A1 (replication of image following):** MAIRA-2 and MedGemma-27B each show positive source-following on contrast pairs (one-sided, α = 0.05 per model, pooled across IU and CheXpert, Holm-corrected across the two models).
+
+**H-A2 (base model):** Qwen2.5-VL-7B's source-following on contrast pairs is lower than MAIRA-2's and lower than MedGemma-27B's (paired by study, pooled, Holm-corrected).
+
+**H-A3 (population prior):** For Lingshu and MedGemma, C5 (no-input) agreement is lower on IU X-ray (normal-majority) than on CheXpert (abnormal-majority), and, within each dataset, lower on normal than on abnormal targets.
+
+**H-A4 (medical fine-tuning):** Lingshu shows greater real-vs-blank gain (C1 − C3) than Qwen2.5-VL (paired by study, pooled).
+
+**Scorer rules unchanged:** primary scorer chosen by ReXVal before scoring; a hypothesis is supported only if the primary scorer and at least one secondary scorer agree in direction and significance.
+
+**Data corrections disclosed:** MedGemma's Study 1 reports truncated at 256 tokens were regenerated at 384 (deterministic decoding; untruncated rows unaffected). All Study 2 MedGemma runs use 384.
