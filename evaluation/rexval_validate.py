@@ -7,12 +7,14 @@ from scipy.stats import kendalltau
 ROOT = Path(__file__).resolve().parents[1]; J = ROOT / "results/rexval_judge"
 key = pd.read_csv(J / "key.csv")
 df = key.merge(pd.read_csv(ROOT / "results/rexval_chexbert.csv"), on="item_id", how="left")
+rg = ROOT / "results/rexval_radgraph.csv"
+if rg.exists(): df = df.merge(pd.read_csv(rg)[["item_id", "radgraph"]], on="item_id", how="left")
 jf = J / "judge_shard0.jsonl"
 if jf.exists():
     j = {r["item_id"]: r["parsed"]["reference_agreement"] for r in map(json.loads, open(jf)) if r.get("ok")}
     df["judge"] = df.item_id.map(j)
 rng = np.random.default_rng(0); res = {}
-for s in [c for c in ["judge", "chexbert"] if c in df]:
+for s in [c for c in ["judge", "chexbert", "radgraph"] if c in df]:
     for target in ["sig_errors", "all_errors"]:
         d = df[[s, target]].dropna()
         tau = kendalltau(d[s], d[target]).statistic
