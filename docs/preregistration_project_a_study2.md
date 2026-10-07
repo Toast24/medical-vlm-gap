@@ -62,3 +62,12 @@ No human expert validation (ReXVal used instead); 8B LLM judge; MedGemma in 8-bi
 **Scorer rules unchanged:** primary scorer chosen by ReXVal before scoring; a hypothesis is supported only if the primary scorer and at least one secondary scorer agree in direction and significance.
 
 **Data corrections disclosed:** MedGemma's Study 1 reports truncated at 256 tokens were regenerated at 384 (deterministic decoding; untruncated rows unaffected). All Study 2 MedGemma runs use 384.
+
+---
+
+## Primary-scorer decision (committed before any Study 2 output was scored)
+
+ReXVal (200 candidate reports, radiologists' clinically significant error counts), Kendall's tau:
+RadGraph F1 −0.539 [−0.616, −0.457]; LLM judge −0.451 [−0.544, −0.351]; CheXbert −0.336 [−0.430, −0.238].
+Per the preregistered rule, **RadGraph F1 (partial: entities + relations) is the primary scorer**; the LLM judge and CheXbert are secondary.
+Results file: `reports/rexval_validation.json`.
