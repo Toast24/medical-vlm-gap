@@ -12,6 +12,7 @@ torch.set_num_threads(int(os.environ.get("CHEXBERT_THREADS", 4)))
 from f1chexbert import F1CheXbert
 
 ROOT = Path(__file__).resolve().parents[1]
+DS = os.environ.get("DS", "scaled")
 CACHE = ROOT / "results/chexbert_labels_cache.json"
 cache = json.load(open(CACHE)) if CACHE.exists() else {}
 model = F1CheXbert(device="cpu")
@@ -28,9 +29,9 @@ pos = lambda v: {n for n, x in zip(NAMES, v) if x == 1 and n != "No Finding"}
 jac = lambda a, b: 1.0 if not a and not b else len(a & b) / len(a | b)
 
 for tag in ["lingshu", "maira2", "medgemma", "qwen", "chexagent"]:
-    J = ROOT / f"results/project_a_judge_scaled_{tag}"
+    J = ROOT / f"results/project_a_judge_{DS}_{tag}"
     if not (J / "items.jsonl").exists(): print(f"{tag}: no items yet, skipped"); continue
-    O = ROOT / f"results/project_a_chexbert_scaled_{tag}"; O.mkdir(parents=True, exist_ok=True)
+    O = ROOT / f"results/project_a_chexbert_{DS}_{tag}"; O.mkdir(parents=True, exist_ok=True)
     shutil.copy(J / "key.csv", O / "key.csv")
     items = [json.loads(l) for l in open(J / "items.jsonl")]
     with open(O / "judge_shard0.jsonl", "w") as f:
