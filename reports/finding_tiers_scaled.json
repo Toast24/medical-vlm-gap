@@ -249,7 +249,7 @@
         "Cardiomegaly": 0.487,
         "Consolidation": 0.15,
         "Edema": 0.021,
-        "Enlarged Cardiomediastinum": 0.174,
+        "Enlarged Cardiomediastinum": 0.229,
         "Fracture": 0.0,
         "Lung Lesion": 0.409,
         "Lung Opacity": -0.179,
@@ -334,7 +334,7 @@
       },
       "MedGemma-27B": {
         "rare (<10%)": 0.161,
-        "moderate (10-25%)": 0.065,
+        "moderate (10-25%)": 0.076,
         "common (>=25%)": 0.34
       },
       "Qwen2.5-VL-7B": {
