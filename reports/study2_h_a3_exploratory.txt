@@ -1,0 +1,71 @@
+EXPLORATORY (post hoc) H-A3 reanalysis
+
+== A. (medical model C5) - (Qwen C5): abnormal vs normal targets; interaction > 0 supports the population prior ==
+
+[radgraph]
+dataset                               CheXpert                                IU                             MIMIC
+model                                                                                                             
+Lingshu        +0.021 [+0.001,+0.046] p=0.0525  +0.026 [+0.010,+0.043] p=0.00745  +0.023 [-0.002,+0.048] p=0.01754
+MedGemma-27B  +0.028 [+0.002,+0.063] p=0.04499      +0.041 [+0.025,+0.057] p=0.0  +0.016 [-0.003,+0.035] p=0.06592
+
+[judge]
+dataset                               CheXpert                              IU                             MIMIC
+model                                                                                                           
+Lingshu       +0.164 [-0.370,+0.725] p=0.27296  +0.654 [+0.365,+0.929] p=3e-05  +0.537 [-0.010,+1.100] p=0.03405
+MedGemma-27B  +1.321 [+0.568,+1.964] p=0.00145    +1.383 [+1.126,+1.641] p=0.0  +1.220 [+0.585,+1.829] p=0.00017
+
+[chexbert]
+dataset                           CheXpert                            IU                           MIMIC
+model                                                                                                   
+Lingshu       +1.118 [+1.082,+1.158] p=0.0  +1.149 [+1.121,+1.180] p=0.0  +0.536 [+0.321,+0.756] p=8e-05
+MedGemma-27B  +1.195 [+1.155,+1.237] p=0.0  +1.202 [+1.181,+1.223] p=0.0  +0.535 [+0.321,+0.752] p=5e-05
+
+(detail: mean difference on abnormal | normal targets)
+  scorer  dataset        model  n_abnormal  n_normal  mean_diff_abnormal  mean_diff_normal
+radgraph    MIMIC      Lingshu          70        30              0.0010           -0.0224
+radgraph    MIMIC MedGemma-27B          70        30             -0.0054           -0.0213
+radgraph       IU      Lingshu         245       105             -0.0330           -0.0595
+radgraph       IU MedGemma-27B         245       105             -0.0162           -0.0568
+radgraph CheXpert      Lingshu          84        16              0.0048           -0.0164
+radgraph CheXpert MedGemma-27B          84        16              0.0057           -0.0226
+   judge    MIMIC      Lingshu          68        30              0.4706           -0.0667
+   judge    MIMIC MedGemma-27B          66        29              0.1515           -1.0690
+   judge       IU      Lingshu         242       105             -0.1364           -0.7905
+   judge       IU MedGemma-27B         243       105             -0.6461           -2.0286
+   judge CheXpert      Lingshu          81        16             -0.0864           -0.2500
+   judge CheXpert MedGemma-27B          77        16             -0.1169           -1.4375
+chexbert    MIMIC      Lingshu          70        30              0.1409           -0.3950
+chexbert    MIMIC MedGemma-27B          70        30              0.1616           -0.3730
+chexbert       IU      Lingshu         245       105              0.1495           -1.0000
+chexbert       IU MedGemma-27B         245       105              0.2021           -1.0000
+chexbert CheXpert      Lingshu          84        16              0.1182           -1.0000
+chexbert CheXpert MedGemma-27B          84        16              0.1946           -1.0000
+
+== B. Prior share = no-info agreement / real-image agreement (higher = more of the score earned without the image) ==
+
+[radgraph]
+dataset                   MIMIC          CheXpert                IU
+model                                                              
+Lingshu        0.64 [0.54,0.76]  0.66 [0.50,0.90]  0.39 [0.36,0.42]
+MAIRA-2        0.00 [0.00,0.00]  0.00 [0.00,0.00]  0.00 [0.00,0.00]
+MedGemma-27B   0.78 [0.69,0.87]  0.96 [0.71,1.30]  0.84 [0.79,0.89]
+Qwen2.5-VL-7B  1.05 [0.94,1.18]  1.00 [0.79,1.29]  0.97 [0.93,1.01]
+
+[judge]
+dataset                    MIMIC          CheXpert                IU
+model                                                               
+CheXagent-2-3b  0.08 [0.02,0.15]               NaN  0.29 [0.00,0.77]
+Lingshu         1.01 [0.84,1.20]  0.97 [0.76,1.25]  0.74 [0.67,0.81]
+MAIRA-2         0.35 [0.24,0.48]  0.33 [0.21,0.47]  0.40 [0.31,0.51]
+MedGemma-27B    0.67 [0.50,0.89]  0.72 [0.52,0.98]  0.31 [0.24,0.38]
+Qwen2.5-VL-7B   0.92 [0.75,1.12]  0.97 [0.81,1.17]  1.07 [0.99,1.15]
+
+[chexbert]
+dataset                   MIMIC          CheXpert                IU
+model                                                              
+Lingshu        0.54 [0.36,0.80]  0.38 [0.23,0.62]  0.30 [0.22,0.39]
+MAIRA-2        0.39 [0.22,0.59]  0.34 [0.21,0.48]  0.69 [0.61,0.79]
+MedGemma-27B   0.53 [0.44,0.62]  0.48 [0.35,0.64]  0.48 [0.40,0.58]
+Qwen2.5-VL-7B  0.89 [0.59,1.26]  1.04 [0.76,1.43]  1.05 [0.96,1.14]
+
+wrote reports/study2_h_a3_exploratory.json
