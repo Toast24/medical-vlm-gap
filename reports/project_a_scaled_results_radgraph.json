@@ -2140,7 +2140,7 @@
       "C2_vs_source": 0.114,
       "C2_vs_target": 0.081,
       "C3_vs_own": 0.085,
-      "C4_vs_own": 0.042,
+      "C4_vs_own": 0.043,
       "C5_vs_own": 0.088
     },
     "Qwen2.5-VL-7B": {

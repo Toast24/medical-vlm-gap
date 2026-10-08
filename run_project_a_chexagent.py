@@ -51,7 +51,8 @@ def generate(img, text):
     conv = [{"from": "system", "value": SYSTEM}, {"from": "human", "value": tok.from_list_format(parts)}]
     ids = tok.apply_chat_template(conv, add_generation_prompt=True, return_tensors="pt").to(model.device)
     with torch.inference_mode():
-        out = model.generate(ids, do_sample=False, num_beams=1, max_new_tokens=MAX_NEW, use_cache=True)[0]
+        out = model.generate(ids, attention_mask=torch.ones_like(ids), pad_token_id=tok.eos_token_id,
+                             do_sample=False, num_beams=1, max_new_tokens=MAX_NEW, use_cache=True)[0]
     new = out[ids.size(1):]
     return tok.decode(new, skip_special_tokens=True).strip(), int(new.size(0))
 

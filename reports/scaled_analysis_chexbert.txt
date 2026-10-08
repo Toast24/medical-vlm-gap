@@ -11,7 +11,7 @@ C1_vs_own        0.24     0.38          0.29           0.17
 C2_vs_source     0.24     0.36          0.34           0.14
 C2_vs_target     0.15     0.16          0.19           0.13
 C3_vs_own        0.15     0.15          0.15           0.15
-C4_vs_own        0.15     0.16          0.19           0.12
+C4_vs_own        0.15     0.16          0.20           0.12
 C5_vs_own        0.13     0.15          0.15           0.15
 
 == within-model effects (mean [CI], BH q) ==
