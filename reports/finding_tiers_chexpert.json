@@ -1,0 +1,347 @@
+{
+  "dataset": "chexpert",
+  "tier_rule": "prevalence in target references: rare <10%, moderate 10-25%, common >=25%",
+  "metrics": {
+    "ba_gain": "balanced accuracy (C1) minus balanced accuracy (no-info: C5, or C3 for MAIRA-2)",
+    "image_gain": "recall (C1) minus recall (no-info)",
+    "source_following": "P(finding in C2 output | only source has it) - P(... | only target has it)"
+  },
+  "prevalence": {
+    "Atelectasis": 0.34,
+    "Cardiomegaly": 0.14,
+    "Consolidation": 0.15,
+    "Edema": 0.27,
+    "Enlarged Cardiomediastinum": 0.09,
+    "Fracture": 0.05,
+    "Lung Lesion": 0.06,
+    "Lung Opacity": 0.31,
+    "Pleural Effusion": 0.3,
+    "Pleural Other": 0.02,
+    "Pneumonia": 0.09,
+    "Pneumothorax": 0.07,
+    "Support Devices": 0.53
+  },
+  "counts": {
+    "Atelectasis": {
+      "n_pos": 34,
+      "n_src_only": 27,
+      "n_tgt_only": 27
+    },
+    "Cardiomegaly": {
+      "n_pos": 14,
+      "n_src_only": 15,
+      "n_tgt_only": 10
+    },
+    "Consolidation": {
+      "n_pos": 15,
+      "n_src_only": 14,
+      "n_tgt_only": 10
+    },
+    "Edema": {
+      "n_pos": 27,
+      "n_src_only": 21,
+      "n_tgt_only": 19
+    },
+    "Enlarged Cardiomediastinum": {
+      "n_pos": 9,
+      "n_src_only": 9,
+      "n_tgt_only": 9
+    },
+    "Fracture": {
+      "n_pos": 5,
+      "n_src_only": 6,
+      "n_tgt_only": 5
+    },
+    "Lung Lesion": {
+      "n_pos": 6,
+      "n_src_only": 6,
+      "n_tgt_only": 6
+    },
+    "Lung Opacity": {
+      "n_pos": 31,
+      "n_src_only": 38,
+      "n_tgt_only": 21
+    },
+    "Pleural Effusion": {
+      "n_pos": 30,
+      "n_src_only": 29,
+      "n_tgt_only": 20
+    },
+    "Pleural Other": {
+      "n_pos": 2,
+      "n_src_only": 4,
+      "n_tgt_only": 2
+    },
+    "Pneumonia": {
+      "n_pos": 9,
+      "n_src_only": 11,
+      "n_tgt_only": 6
+    },
+    "Pneumothorax": {
+      "n_pos": 7,
+      "n_src_only": 11,
+      "n_tgt_only": 6
+    },
+    "Support Devices": {
+      "n_pos": 53,
+      "n_src_only": 40,
+      "n_tgt_only": 39
+    }
+  },
+  "by_finding": {
+    "ba_gain": {
+      "Lingshu": {
+        "Atelectasis": 0.029,
+        "Cardiomegaly": -0.051,
+        "Consolidation": 0.0,
+        "Edema": 0.082,
+        "Enlarged Cardiomediastinum": 0.123,
+        "Fracture": 0.0,
+        "Lung Lesion": 0.0,
+        "Lung Opacity": 0.05,
+        "Pleural Effusion": 0.017,
+        "Pleural Other": 0.0,
+        "Pneumonia": 0.0,
+        "Pneumothorax": 0.071,
+        "Support Devices": 0.186
+      },
+      "MAIRA-2": {
+        "Atelectasis": 0.173,
+        "Cardiomegaly": 0.259,
+        "Consolidation": 0.016,
+        "Edema": 0.195,
+        "Enlarged Cardiomediastinum": -0.016,
+        "Fracture": 0.1,
+        "Lung Lesion": -0.005,
+        "Lung Opacity": 0.098,
+        "Pleural Effusion": 0.198,
+        "Pleural Other": -0.015,
+        "Pneumonia": 0.084,
+        "Pneumothorax": 0.061,
+        "Support Devices": 0.375
+      },
+      "MedGemma-27B": {
+        "Atelectasis": 0.063,
+        "Cardiomegaly": 0.199,
+        "Consolidation": 0.018,
+        "Edema": 0.119,
+        "Enlarged Cardiomediastinum": 0.052,
+        "Fracture": -0.032,
+        "Lung Lesion": 0.135,
+        "Lung Opacity": 0.01,
+        "Pleural Effusion": 0.255,
+        "Pleural Other": 0.0,
+        "Pneumonia": -0.016,
+        "Pneumothorax": 0.155,
+        "Support Devices": 0.244
+      },
+      "Qwen2.5-VL-7B": {
+        "Atelectasis": -0.023,
+        "Cardiomegaly": -0.041,
+        "Consolidation": -0.035,
+        "Edema": 0.0,
+        "Enlarged Cardiomediastinum": -0.016,
+        "Fracture": 0.0,
+        "Lung Lesion": -0.005,
+        "Lung Opacity": -0.011,
+        "Pleural Effusion": -0.01,
+        "Pleural Other": -0.005,
+        "Pneumonia": 0.0,
+        "Pneumothorax": -0.005,
+        "Support Devices": -0.019
+      }
+    },
+    "image_gain": {
+      "Lingshu": {
+        "Atelectasis": 0.059,
+        "Cardiomegaly": -0.929,
+        "Consolidation": 0.0,
+        "Edema": -0.741,
+        "Enlarged Cardiomediastinum": 0.333,
+        "Fracture": 0.0,
+        "Lung Lesion": 0.0,
+        "Lung Opacity": 0.129,
+        "Pleural Effusion": 0.033,
+        "Pleural Other": 0.0,
+        "Pneumonia": 0.0,
+        "Pneumothorax": 0.143,
+        "Support Devices": 0.415
+      },
+      "MAIRA-2": {
+        "Atelectasis": 0.588,
+        "Cardiomegaly": 0.786,
+        "Consolidation": 0.067,
+        "Edema": 0.444,
+        "Enlarged Cardiomediastinum": 0.0,
+        "Fracture": 0.2,
+        "Lung Lesion": 0.0,
+        "Lung Opacity": 0.355,
+        "Pleural Effusion": 0.567,
+        "Pleural Other": 0.0,
+        "Pneumonia": 0.333,
+        "Pneumothorax": 0.143,
+        "Support Devices": 0.792
+      },
+      "MedGemma-27B": {
+        "Atelectasis": -0.647,
+        "Cardiomegaly": -0.357,
+        "Consolidation": -0.8,
+        "Edema": 0.333,
+        "Enlarged Cardiomediastinum": 0.444,
+        "Fracture": 0.0,
+        "Lung Lesion": 0.333,
+        "Lung Opacity": -0.516,
+        "Pleural Effusion": 0.667,
+        "Pleural Other": 0.0,
+        "Pneumonia": 0.0,
+        "Pneumothorax": 0.429,
+        "Support Devices": 0.849
+      },
+      "Qwen2.5-VL-7B": {
+        "Atelectasis": 0.0,
+        "Cardiomegaly": 0.0,
+        "Consolidation": 0.0,
+        "Edema": 0.0,
+        "Enlarged Cardiomediastinum": 0.0,
+        "Fracture": 0.0,
+        "Lung Lesion": 0.0,
+        "Lung Opacity": 0.065,
+        "Pleural Effusion": 0.067,
+        "Pleural Other": 0.0,
+        "Pneumonia": 0.0,
+        "Pneumothorax": 0.0,
+        "Support Devices": 0.132
+      }
+    },
+    "source_following": {
+      "Lingshu": {
+        "Atelectasis": 0.074,
+        "Cardiomegaly": 0.1,
+        "Consolidation": 0.0,
+        "Edema": 0.07,
+        "Enlarged Cardiomediastinum": 0.0,
+        "Fracture": 0.0,
+        "Lung Lesion": 0.0,
+        "Lung Opacity": -0.069,
+        "Pleural Effusion": 0.138,
+        "Pleural Other": 0.0,
+        "Pneumonia": 0.0,
+        "Pneumothorax": 0.0,
+        "Support Devices": 0.299
+      },
+      "MAIRA-2": {
+        "Atelectasis": -0.037,
+        "Cardiomegaly": -0.233,
+        "Consolidation": 0.043,
+        "Edema": 0.16,
+        "Enlarged Cardiomediastinum": 0.111,
+        "Fracture": 0.333,
+        "Lung Lesion": 0.0,
+        "Lung Opacity": 0.088,
+        "Pleural Effusion": 0.271,
+        "Pleural Other": 0.25,
+        "Pneumonia": 0.545,
+        "Pneumothorax": 0.015,
+        "Support Devices": 0.749
+      },
+      "MedGemma-27B": {
+        "Atelectasis": 0.111,
+        "Cardiomegaly": 0.1,
+        "Consolidation": -0.086,
+        "Edema": 0.223,
+        "Enlarged Cardiomediastinum": 0.333,
+        "Fracture": 0.333,
+        "Lung Lesion": 0.167,
+        "Lung Opacity": 0.118,
+        "Pleural Effusion": 0.29,
+        "Pleural Other": 0.0,
+        "Pneumonia": 0.273,
+        "Pneumothorax": -0.121,
+        "Support Devices": 0.388
+      },
+      "Qwen2.5-VL-7B": {
+        "Atelectasis": 0.0,
+        "Cardiomegaly": 0.033,
+        "Consolidation": 0.071,
+        "Edema": 0.048,
+        "Enlarged Cardiomediastinum": 0.0,
+        "Fracture": 0.0,
+        "Lung Lesion": 0.0,
+        "Lung Opacity": -0.021,
+        "Pleural Effusion": 0.091,
+        "Pleural Other": 0.0,
+        "Pneumonia": 0.0,
+        "Pneumothorax": 0.0,
+        "Support Devices": 0.021
+      }
+    }
+  },
+  "by_tier": {
+    "ba_gain": {
+      "Lingshu": {
+        "rare (<10%)": 0.032,
+        "moderate (10-25%)": -0.026,
+        "common (>=25%)": 0.073
+      },
+      "MAIRA-2": {
+        "rare (<10%)": 0.035,
+        "moderate (10-25%)": 0.137,
+        "common (>=25%)": 0.208
+      },
+      "MedGemma-27B": {
+        "rare (<10%)": 0.049,
+        "moderate (10-25%)": 0.108,
+        "common (>=25%)": 0.138
+      },
+      "Qwen2.5-VL-7B": {
+        "rare (<10%)": -0.005,
+        "moderate (10-25%)": -0.038,
+        "common (>=25%)": -0.013
+      }
+    },
+    "image_gain": {
+      "Lingshu": {
+        "rare (<10%)": 0.079,
+        "moderate (10-25%)": -0.464,
+        "common (>=25%)": -0.021
+      },
+      "MAIRA-2": {
+        "rare (<10%)": 0.113,
+        "moderate (10-25%)": 0.426,
+        "common (>=25%)": 0.549
+      },
+      "MedGemma-27B": {
+        "rare (<10%)": 0.201,
+        "moderate (10-25%)": -0.579,
+        "common (>=25%)": 0.137
+      },
+      "Qwen2.5-VL-7B": {
+        "rare (<10%)": 0.0,
+        "moderate (10-25%)": 0.0,
+        "common (>=25%)": 0.053
+      }
+    },
+    "source_following": {
+      "Lingshu": {
+        "rare (<10%)": 0.0,
+        "moderate (10-25%)": 0.05,
+        "common (>=25%)": 0.103
+      },
+      "MAIRA-2": {
+        "rare (<10%)": 0.209,
+        "moderate (10-25%)": -0.095,
+        "common (>=25%)": 0.246
+      },
+      "MedGemma-27B": {
+        "rare (<10%)": 0.164,
+        "moderate (10-25%)": 0.007,
+        "common (>=25%)": 0.226
+      },
+      "Qwen2.5-VL-7B": {
+        "rare (<10%)": 0.0,
+        "moderate (10-25%)": 0.052,
+        "common (>=25%)": 0.028
+      }
+    }
+  }
+}
