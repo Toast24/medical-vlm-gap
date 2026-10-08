@@ -44,6 +44,9 @@ PROMPT = (
     "Do not speculate beyond what is visible."
 )
 
+PROMPT = os.environ.get("PROJECT_A_PROMPT", PROMPT)
+print("prompt:", repr(PROMPT), flush=True)
+
 BLANK_SIZE = (512, 512)
 BLANK_VALUE = 0
 
