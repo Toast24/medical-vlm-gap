@@ -59,7 +59,7 @@ for col in ["ba_gain", "image_gain", "source_following"]:
     print(df.pivot(index="finding", columns="model", values=col).round(2).to_string())
     print(f"\n== {col}: mean by tier ==")
     print(df.groupby(["tier", "model"], observed=True)[col].mean().unstack().round(2).to_string())
-out = ROOT / f"reports/finding_tiers_{DS}.csv"; df.to_csv(out, index=False); print(f"\nwrote {out}")
+out = ROOT / f"reports/finding_tiers_{DS}.csv"; df.to_csv(out, index=False); print(f"\nwrote {out.relative_to(ROOT) if hasattr(out, "relative_to") else out}")
 summary = {"dataset": DS, "tier_rule": "prevalence in target references: rare <10%, moderate 10-25%, common >=25%",
            "metrics": {"ba_gain": "balanced accuracy (C1) minus balanced accuracy (no-info: C5, or C3 for MAIRA-2)",
                        "image_gain": "recall (C1) minus recall (no-info)",
@@ -70,4 +70,4 @@ summary = {"dataset": DS, "tier_rule": "prevalence in target references: rare <1
                               for m, g in df.groupby("model")} for c in ["ba_gain", "image_gain", "source_following"]},
            "by_tier": {c: {m: {str(t): (None if pd.isna(v) else round(float(v), 3)) for t, v in g.groupby("tier", observed=True)[c].mean().items()}
                            for m, g in df.groupby("model")} for c in ["ba_gain", "image_gain", "source_following"]}}
-jout = ROOT / f"reports/finding_tiers_{DS}.json"; json.dump(summary, open(jout, "w"), indent=2); print(f"wrote {jout}")
+jout = ROOT / f"reports/finding_tiers_{DS}.json"; json.dump(summary, open(jout, "w"), indent=2); print(f"wrote {jout.relative_to(ROOT) if hasattr(jout, "relative_to") else jout}")

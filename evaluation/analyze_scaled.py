@@ -99,4 +99,4 @@ for eff in ["source_following", "own_vs_other", "image_vs_blank", "image_vs_noin
 print("\n== between-model ==")
 for r in res["between"]: print(r)
 out = ROOT / ("reports/project_a_scaled_results.json" if SCORER == "judge" else f"reports/project_a_scaled_results_{SCORER}.json")
-json.dump(res, open(out, "w"), indent=2, default=str); print(f"\nwrote {out}")
+json.dump(res, open(out, "w"), indent=2, default=str); print(f"\nwrote {out.relative_to(ROOT) if hasattr(out, "relative_to") else out}")

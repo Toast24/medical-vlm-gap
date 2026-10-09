@@ -142,4 +142,4 @@ AP             +1.56 [+1.32,+1.76] q=0.0  -0.09 [-0.39,+0.20] q=0.7156     +0.84
 {'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 94, 'mean': np.float64(1.479), 'ci': [1.181, 1.777], 'p': 0.0, 'q_bh': 0.0}
 {'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 76, 'mean': np.float64(1.526), 'ci': [1.211, 1.855], 'p': 0.0, 'q_bh': 0.0}
 
-wrote /localstorage/home/p20250084/medical-vlm-gap/reports/project_a_scaled_results.json
+wrote reports/project_a_scaled_results.json

@@ -88,5 +88,5 @@ rare (<10%)                  0.20     0.00    -0.01          0.16          -0.08
 moderate (10-25%)            0.22    -0.02     0.21          0.08          -0.01
 common (>=25%)               0.45     0.13     0.41          0.34           0.09
 
-wrote /localstorage/home/p20250084/medical-vlm-gap/reports/finding_tiers_scaled.csv
-wrote /localstorage/home/p20250084/medical-vlm-gap/reports/finding_tiers_scaled.json
+wrote reports/finding_tiers_scaled.csv
+wrote reports/finding_tiers_scaled.json
