@@ -1,113 +1,145 @@
 scorer: judge
-models: {'Lingshu': {'judged': 683, 'items': 700, 'failed': 17}, 'MAIRA-2': {'judged': 678, 'items': 700, 'failed': 22}, 'MedGemma-27B': {'judged': 563, 'items': 700, 'failed': 137}, 'Qwen2.5-VL-7B': {'judged': 676, 'items': 700, 'failed': 24}}
+models: {'Lingshu': {'judged': 683, 'items': 700, 'failed': 17}, 'MAIRA-2': {'judged': 678, 'items': 700, 'failed': 22}, 'MedGemma-27B': {'judged': 563, 'items': 700, 'failed': 137}, 'Qwen2.5-VL-7B': {'judged': 676, 'items': 700, 'failed': 24}, 'CheXagent-2-3b': {'judged': 678, 'items': 700, 'failed': 22}}
 
 == PRIMARY ==
  {'outcome': 'source_following, MAIRA-2 minus Lingshu, contrast pairs', 'n': 71, 'mean': np.float64(0.282), 'ci': [-0.099, 0.662], 'p': 0.1378}
 
 == mean agreement by role ==
-              Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
-C1_vs_other      0.86     0.57          0.85           0.96
-C1_vs_own        1.29     1.36          1.22           1.12
-C2_vs_source     1.14     1.40          1.20           0.97
-C2_vs_target     1.03     0.97          0.78           1.22
-C3_vs_own        1.03     0.47          1.46           0.99
-C4_vs_own        0.93     0.58          1.11           1.68
-C5_vs_own        1.29     0.58          0.77           1.01
+              Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B  CheXagent-2-3b
+C1_vs_other      0.86     0.57          0.85           0.96            0.84
+C1_vs_own        1.29     1.36          1.22           1.12            1.68
+C2_vs_source     1.14     1.40          1.20           0.97            1.57
+C2_vs_target     1.03     0.97          0.78           1.22            1.08
+C3_vs_own        1.03     0.47          1.46           0.99            0.58
+C4_vs_own        0.93     0.58          1.11           1.68            0.06
+C5_vs_own        1.29     0.58          0.77           1.01            0.13
 
 == within-model effects (mean [CI], BH q) ==
 
 -- source_following --
-model                            Lingshu                       MAIRA-2                  MedGemma-27B                 Qwen2.5-VL-7B
-stratum                                                                                                                           
-all         +0.09 [-0.20,+0.36] q=0.5812  +0.40 [+0.11,+0.69] q=0.0216  +0.47 [+0.09,+0.81] q=0.0393  -0.28 [-0.56,+0.02] q=0.1172
-contrast    +0.16 [-0.16,+0.48] q=0.3833  +0.49 [+0.18,+0.80] q=0.0098  +0.57 [+0.19,+0.94] q=0.0204  -0.29 [-0.61,+0.03] q=0.1391
-same_label  -0.21 [-0.74,+0.32] q=0.5812     +0.05 [-0.63,+0.74] q=1.0     +0.00 [-0.91,+0.91] q=1.0  -0.21 [-0.84,+0.42] q=0.6341
-normal      -0.14 [-0.50,+0.21] q=0.5812  +0.24 [-0.28,+0.76] q=0.3757    +0.76 [+0.10,+1.33] q=0.08  -0.83 [-1.31,-0.34] q=0.0187
-abnormal    +0.18 [-0.17,+0.55] q=0.3833  +0.47 [+0.12,+0.81] q=0.0393  +0.33 [-0.09,+0.74] q=0.2458  -0.03 [-0.37,+0.31] q=0.9072
-PA          -0.11 [-0.56,+0.33] q=0.7324  +0.54 [+0.06,+1.00] q=0.0429   +0.64 [+0.08,+1.20] q=0.104  -0.53 [-1.00,-0.06] q=0.0985
-AP          +0.21 [-0.14,+0.55] q=0.3118  +0.31 [-0.07,+0.67] q=0.2139  +0.36 [-0.10,+0.77] q=0.2277   -0.12 [-0.48,+0.24] q=0.577
+model                     CheXagent-2-3b                       Lingshu                       MAIRA-2                  MedGemma-27B                 Qwen2.5-VL-7B
+stratum                                                                                                                                                         
+all          +0.45 [+0.20,+0.70] q=0.003  +0.09 [-0.20,+0.36] q=0.5684  +0.40 [+0.11,+0.69] q=0.0152  +0.47 [+0.09,+0.81] q=0.0306  -0.28 [-0.56,+0.02] q=0.0977
+contrast    +0.54 [+0.26,+0.83] q=0.0023  +0.16 [-0.16,+0.48] q=0.3578  +0.49 [+0.18,+0.80] q=0.0061  +0.57 [+0.19,+0.94] q=0.0142  -0.29 [-0.61,+0.03] q=0.1165
+same_label  +0.10 [-0.32,+0.53] q=0.7238  -0.21 [-0.74,+0.32] q=0.5702     +0.05 [-0.63,+0.74] q=1.0     +0.00 [-0.91,+0.91] q=1.0  -0.21 [-0.84,+0.42] q=0.6168
+normal      +0.64 [+0.12,+1.12] q=0.0441  -0.14 [-0.50,+0.21] q=0.5702   +0.24 [-0.28,+0.76] q=0.346  +0.76 [+0.10,+1.33] q=0.0639   -0.83 [-1.31,-0.34] q=0.013
+abnormal    +0.38 [+0.09,+0.66] q=0.0312  +0.18 [-0.17,+0.55] q=0.3578  +0.47 [+0.12,+0.81] q=0.0306  +0.33 [-0.09,+0.74] q=0.2176  -0.03 [-0.37,+0.31] q=0.9028
+PA          +0.58 [+0.19,+0.97] q=0.0134  -0.11 [-0.56,+0.33] q=0.7154  +0.54 [+0.06,+1.00] q=0.0338  +0.64 [+0.08,+1.20] q=0.0856  -0.53 [-1.00,-0.06] q=0.0796
+AP          +0.36 [+0.02,+0.68] q=0.0871  +0.21 [-0.14,+0.55] q=0.2831  +0.31 [-0.07,+0.67] q=0.1841  +0.36 [-0.10,+0.77] q=0.1976  -0.12 [-0.48,+0.24] q=0.5623
 
 -- own_vs_other --
-model                            Lingshu                       MAIRA-2                  MedGemma-27B                 Qwen2.5-VL-7B
-stratum                                                                                                                           
-all         +0.47 [+0.21,+0.72] q=0.0031     +0.81 [+0.56,+1.06] q=0.0  +0.41 [+0.10,+0.72] q=0.0563  +0.23 [-0.08,+0.53] q=0.3086
-contrast    +0.60 [+0.34,+0.87] q=0.0006     +0.82 [+0.55,+1.08] q=0.0   +0.40 [+0.03,+0.75] q=0.104  +0.39 [+0.05,+0.71] q=0.1008
-same_label  -0.11 [-0.67,+0.44] q=0.7838  +0.79 [+0.10,+1.42] q=0.1073   +0.43 [-0.29,+1.14] q=0.377  -0.50 [-1.12,+0.12] q=0.2622
-normal      +0.80 [+0.40,+1.20] q=0.0074  +1.20 [+0.87,+1.53] q=0.0002  -0.09 [-0.65,+0.43] q=0.7131  +0.86 [+0.39,+1.29] q=0.0147
-abnormal    +0.31 [+0.00,+0.62] q=0.1078  +0.63 [+0.31,+0.95] q=0.0035  +0.63 [+0.28,+0.98] q=0.0121  -0.05 [-0.41,+0.32] q=0.7988
-PA          +0.54 [+0.16,+0.92] q=0.0382  +1.03 [+0.59,+1.41] q=0.0011  +0.38 [-0.17,+0.90] q=0.3327  +0.39 [-0.03,+0.81] q=0.2397
-AP          +0.42 [+0.10,+0.74] q=0.0402  +0.67 [+0.36,+0.98] q=0.0018   +0.42 [+0.04,+0.80] q=0.107  +0.13 [-0.27,+0.55] q=0.6998
+model                     CheXagent-2-3b                       Lingshu                       MAIRA-2                  MedGemma-27B                 Qwen2.5-VL-7B
+stratum                                                                                                                                                         
+all            +0.91 [+0.68,+1.12] q=0.0  +0.47 [+0.21,+0.72] q=0.0019     +0.81 [+0.56,+1.06] q=0.0  +0.41 [+0.10,+0.72] q=0.0445  +0.23 [-0.08,+0.53] q=0.2792
+contrast       +0.91 [+0.65,+1.16] q=0.0  +0.60 [+0.34,+0.87] q=0.0003     +0.82 [+0.55,+1.08] q=0.0  +0.40 [+0.03,+0.75] q=0.0852  +0.39 [+0.05,+0.71] q=0.0819
+same_label  +0.90 [+0.42,+1.37] q=0.0168  -0.11 [-0.67,+0.44] q=0.7683  +0.79 [+0.10,+1.42] q=0.0878  +0.43 [-0.29,+1.14] q=0.3488  -0.50 [-1.12,+0.12] q=0.2338
+normal      +1.03 [+0.69,+1.38] q=0.0006  +0.80 [+0.40,+1.20] q=0.0043  +1.20 [+0.87,+1.53] q=0.0001   -0.09 [-0.65,+0.43] q=0.696  +0.86 [+0.39,+1.29] q=0.0101
+abnormal       +0.85 [+0.57,+1.13] q=0.0  +0.31 [+0.00,+0.62] q=0.0892  +0.63 [+0.31,+0.95] q=0.0021  +0.63 [+0.28,+0.98] q=0.0076  -0.05 [-0.41,+0.32] q=0.7891
+PA          +1.00 [+0.62,+1.35] q=0.0005  +0.54 [+0.16,+0.92] q=0.0288  +1.03 [+0.59,+1.41] q=0.0006   +0.38 [-0.17,+0.90] q=0.303  +0.39 [-0.03,+0.81] q=0.2103
+AP             +0.85 [+0.58,+1.12] q=0.0  +0.42 [+0.10,+0.74] q=0.0312   +0.67 [+0.36,+0.98] q=0.001  +0.42 [+0.04,+0.80] q=0.0871  +0.13 [-0.27,+0.55] q=0.6816
 
 -- image_vs_blank --
-model                            Lingshu                       MAIRA-2                  MedGemma-27B                 Qwen2.5-VL-7B
-stratum                                                                                                                           
-all         +0.27 [+0.06,+0.48] q=0.0257     +0.90 [+0.67,+1.12] q=0.0  -0.21 [-0.53,+0.12] q=0.2802  +0.12 [-0.13,+0.35] q=0.4969
-contrast    +0.27 [+0.04,+0.51] q=0.0393     +0.79 [+0.53,+1.03] q=0.0  -0.22 [-0.57,+0.13] q=0.2802  +0.14 [-0.13,+0.42] q=0.4629
-same_label  +0.23 [-0.23,+0.71] q=0.4415   +1.32 [+0.90,+1.68] q=0.003  -0.14 [-1.00,+0.71] q=0.7988     +0.00 [-0.44,+0.44] q=1.0
-normal      +0.03 [-0.30,+0.37] q=0.7521  +0.80 [+0.33,+1.20] q=0.0123  -0.72 [-1.28,-0.16] q=0.0519  -0.24 [-0.69,+0.21] q=0.3833
-abnormal    +0.38 [+0.12,+0.62] q=0.0254     +0.94 [+0.68,+1.20] q=0.0  +0.04 [-0.35,+0.39] q=0.8916  +0.27 [+0.00,+0.55] q=0.1078
-PA          +0.24 [-0.11,+0.59] q=0.2458   +0.97 [+0.59,+1.35] q=0.001  -0.06 [-0.55,+0.42] q=0.7537   +0.05 [-0.38,+0.49] q=0.855
-AP          +0.28 [+0.02,+0.54] q=0.0622     +0.84 [+0.57,+1.10] q=0.0  -0.32 [-0.73,+0.14] q=0.2637  +0.15 [-0.12,+0.45] q=0.4536
+model                     CheXagent-2-3b                       Lingshu                       MAIRA-2                  MedGemma-27B                 Qwen2.5-VL-7B
+stratum                                                                                                                                                         
+all            +1.10 [+0.90,+1.31] q=0.0  +0.27 [+0.06,+0.48] q=0.0186     +0.90 [+0.67,+1.12] q=0.0  -0.21 [-0.53,+0.12] q=0.2512  +0.12 [-0.13,+0.35] q=0.4763
+contrast       +1.10 [+0.86,+1.34] q=0.0  +0.27 [+0.04,+0.51] q=0.0306     +0.79 [+0.53,+1.03] q=0.0  -0.22 [-0.57,+0.13] q=0.2518  +0.14 [-0.13,+0.42] q=0.4415
+same_label  +1.10 [+0.68,+1.53] q=0.0043  +0.23 [-0.23,+0.71] q=0.4155  +1.32 [+0.90,+1.68] q=0.0018  -0.14 [-1.00,+0.71] q=0.7891     +0.00 [-0.44,+0.44] q=1.0
+normal      +1.14 [+0.69,+1.55] q=0.0009  +0.03 [-0.30,+0.37] q=0.7342   +0.80 [+0.33,+1.20] q=0.008  -0.72 [-1.28,-0.16] q=0.0415  -0.24 [-0.69,+0.21] q=0.3572
+abnormal       +1.09 [+0.85,+1.33] q=0.0  +0.38 [+0.12,+0.62] q=0.0182     +0.94 [+0.68,+1.20] q=0.0  +0.04 [-0.35,+0.39] q=0.8858  +0.27 [+0.00,+0.55] q=0.0892
+PA          +1.03 [+0.70,+1.35] q=0.0001  +0.24 [-0.11,+0.59] q=0.2176  +0.97 [+0.59,+1.35] q=0.0005  -0.06 [-0.55,+0.42] q=0.7373  +0.05 [-0.38,+0.49] q=0.8463
+AP             +1.15 [+0.88,+1.42] q=0.0  +0.28 [+0.02,+0.54] q=0.0493     +0.84 [+0.57,+1.10] q=0.0  -0.32 [-0.73,+0.14] q=0.2357  +0.15 [-0.12,+0.45] q=0.4304
 
 -- image_vs_noinfo --
-model                            Lingshu                       MAIRA-2                  MedGemma-27B                 Qwen2.5-VL-7B
-stratum                                                                                                                           
-all            -0.01 [-0.25,+0.23] q=1.0     +0.90 [+0.67,+1.12] q=0.0  +0.40 [+0.13,+0.67] q=0.0293  +0.09 [-0.12,+0.30] q=0.4604
-contrast    +0.09 [-0.17,+0.35] q=0.5533     +0.79 [+0.53,+1.03] q=0.0  +0.53 [+0.23,+0.82] q=0.0076  +0.09 [-0.16,+0.34] q=0.5371
-same_label  -0.42 [-0.84,+0.00] q=0.1929   +1.32 [+0.90,+1.68] q=0.003  -0.12 [-0.82,+0.59] q=0.7988  +0.10 [-0.21,+0.42] q=0.6681
-normal      +0.30 [-0.03,+0.63] q=0.1391  +0.80 [+0.33,+1.20] q=0.0123  +0.61 [+0.23,+1.00] q=0.0393  -0.03 [-0.37,+0.30] q=0.9518
-abnormal    -0.15 [-0.46,+0.15] q=0.4415     +0.94 [+0.68,+1.20] q=0.0  +0.30 [-0.03,+0.64] q=0.1803  +0.15 [-0.12,+0.42] q=0.3897
-PA          +0.11 [-0.27,+0.49] q=0.6681   +0.97 [+0.59,+1.35] q=0.001  +0.60 [+0.26,+0.94] q=0.0147  +0.16 [-0.22,+0.54] q=0.5231
-AP          -0.09 [-0.39,+0.20] q=0.7324     +0.84 [+0.57,+1.10] q=0.0  +0.26 [-0.12,+0.64] q=0.3566  +0.05 [-0.20,+0.30] q=0.7131
+model                     CheXagent-2-3b                       Lingshu                       MAIRA-2                  MedGemma-27B                 Qwen2.5-VL-7B
+stratum                                                                                                                                                         
+all            +1.55 [+1.34,+1.73] q=0.0     -0.01 [-0.25,+0.23] q=1.0     +0.90 [+0.67,+1.12] q=0.0  +0.40 [+0.13,+0.67] q=0.0216   +0.09 [-0.12,+0.30] q=0.438
+contrast       +1.58 [+1.35,+1.78] q=0.0   +0.09 [-0.17,+0.35] q=0.538     +0.79 [+0.53,+1.03] q=0.0  +0.53 [+0.23,+0.82] q=0.0046  +0.09 [-0.16,+0.34] q=0.5198
+same_label  +1.39 [+0.89,+1.83] q=0.0028  -0.42 [-0.84,+0.00] q=0.1646  +1.32 [+0.90,+1.68] q=0.0018  -0.12 [-0.82,+0.59] q=0.7891  +0.10 [-0.21,+0.42] q=0.6527
+normal         +1.86 [+1.59,+2.07] q=0.0  +0.30 [-0.03,+0.63] q=0.1165   +0.80 [+0.33,+1.20] q=0.008  +0.61 [+0.23,+1.00] q=0.0306  -0.03 [-0.37,+0.30] q=0.9496
+abnormal       +1.41 [+1.15,+1.65] q=0.0  -0.15 [-0.46,+0.15] q=0.4155     +0.94 [+0.68,+1.20] q=0.0  +0.30 [-0.03,+0.64] q=0.1531  +0.15 [-0.12,+0.42] q=0.3648
+PA             +1.53 [+1.16,+1.84] q=0.0  +0.11 [-0.27,+0.49] q=0.6527  +0.97 [+0.59,+1.35] q=0.0005    +0.60 [+0.26,+0.94] q=0.01  +0.16 [-0.22,+0.54] q=0.5039
+AP             +1.56 [+1.32,+1.76] q=0.0  -0.09 [-0.39,+0.20] q=0.7156     +0.84 [+0.57,+1.10] q=0.0  +0.26 [-0.12,+0.64] q=0.3258   +0.05 [-0.20,+0.30] q=0.696
 
 == between-model ==
-{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'source_following', 'stratum': 'all', 'n': 90, 'mean': np.float64(0.278), 'ci': [-0.067, 0.622], 'p': 0.1163, 'q_bh': 0.2139}
-{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'source_following', 'stratum': 'contrast', 'n': 71, 'mean': np.float64(0.282), 'ci': [-0.099, 0.662], 'p': 0.1378, 'q_bh': 0.2397}
-{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 91, 'mean': np.float64(0.363), 'ci': [0.044, 0.681], 'p': 0.0247, 'q_bh': 0.0622}
-{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 74, 'mean': np.float64(0.243), 'ci': [-0.081, 0.568], 'p': 0.1599, 'q_bh': 0.2637}
-{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 92, 'mean': np.float64(0.652), 'ci': [0.359, 0.946], 'p': 0.0001, 'q_bh': 0.0009}
-{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 76, 'mean': np.float64(0.539), 'ci': [0.197, 0.882], 'p': 0.0032, 'q_bh': 0.0143}
-{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 94, 'mean': np.float64(0.936), 'ci': [0.585, 1.277], 'p': 0.0, 'q_bh': 0.0001}
-{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 76, 'mean': np.float64(0.697), 'ci': [0.316, 1.079], 'p': 0.0013, 'q_bh': 0.0074}
-{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'source_following', 'stratum': 'all', 'n': 63, 'mean': np.float64(0.381), 'ci': [-0.095, 0.841], 'p': 0.1505, 'q_bh': 0.2534}
-{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'source_following', 'stratum': 'contrast', 'n': 52, 'mean': np.float64(0.423), 'ci': [-0.058, 0.904], 'p': 0.1308, 'q_bh': 0.2326}
-{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 73, 'mean': np.float64(-0.055), 'ci': [-0.479, 0.356], 'p': 0.7158, 'q_bh': 0.7898}
-{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 59, 'mean': np.float64(-0.203), 'ci': [-0.644, 0.254], 'p': 0.3206, 'q_bh': 0.4422}
-{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 76, 'mean': np.float64(-0.487), 'ci': [-0.829, -0.144], 'p': 0.0066, 'q_bh': 0.0234}
-{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 62, 'mean': np.float64(-0.5), 'ci': [-0.871, -0.113], 'p': 0.009, 'q_bh': 0.0293}
-{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 84, 'mean': np.float64(0.417), 'ci': [0.095, 0.738], 'p': 0.0171, 'q_bh': 0.0456}
-{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 67, 'mean': np.float64(0.403), 'ci': [0.045, 0.776], 'p': 0.0368, 'q_bh': 0.0892}
-{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'source_following', 'stratum': 'all', 'n': 91, 'mean': np.float64(-0.308), 'ci': [-0.627, 0.022], 'p': 0.0704, 'q_bh': 0.1391}
-{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'source_following', 'stratum': 'contrast', 'n': 72, 'mean': np.float64(-0.389), 'ci': [-0.778, -0.014], 'p': 0.0526, 'q_bh': 0.1122}
-{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 88, 'mean': np.float64(-0.125), 'ci': [-0.443, 0.182], 'p': 0.4114, 'q_bh': 0.5266}
-{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 73, 'mean': np.float64(-0.151), 'ci': [-0.507, 0.192], 'p': 0.3832, 'q_bh': 0.4985}
-{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 91, 'mean': np.float64(-0.132), 'ci': [-0.44, 0.176], 'p': 0.3301, 'q_bh': 0.4514}
-{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 75, 'mean': np.float64(-0.107), 'ci': [-0.44, 0.213], 'p': 0.4426, 'q_bh': 0.5533}
-{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 93, 'mean': np.float64(0.151), 'ci': [-0.183, 0.495], 'p': 0.3738, 'q_bh': 0.4942}
-{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 75, 'mean': np.float64(0.027), 'ci': [-0.347, 0.4], 'p': 0.8908, 'q_bh': 0.9195}
-{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'source_following', 'stratum': 'all', 'n': 61, 'mean': np.float64(-0.033), 'ci': [-0.525, 0.443], 'p': 0.8886, 'q_bh': 0.9195}
-{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'source_following', 'stratum': 'contrast', 'n': 50, 'mean': np.float64(0.04), 'ci': [-0.52, 0.58], 'p': 0.8859, 'q_bh': 0.9195}
-{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 71, 'mean': np.float64(-0.394), 'ci': [-0.789, 0.0], 'p': 0.0575, 'q_bh': 0.118}
-{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 57, 'mean': np.float64(-0.421), 'ci': [-0.86, 0.018], 'p': 0.0717, 'q_bh': 0.14}
+{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'source_following', 'stratum': 'all', 'n': 90, 'mean': np.float64(0.278), 'ci': [-0.067, 0.622], 'p': 0.1163, 'q_bh': 0.1841}
+{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'source_following', 'stratum': 'contrast', 'n': 71, 'mean': np.float64(0.282), 'ci': [-0.099, 0.662], 'p': 0.1378, 'q_bh': 0.2106}
+{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 91, 'mean': np.float64(0.363), 'ci': [0.044, 0.681], 'p': 0.0247, 'q_bh': 0.0493}
+{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 74, 'mean': np.float64(0.243), 'ci': [-0.081, 0.568], 'p': 0.1599, 'q_bh': 0.2357}
+{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 92, 'mean': np.float64(0.652), 'ci': [0.359, 0.946], 'p': 0.0001, 'q_bh': 0.0005}
+{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 76, 'mean': np.float64(0.539), 'ci': [0.197, 0.882], 'p': 0.0032, 'q_bh': 0.0094}
+{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 94, 'mean': np.float64(0.936), 'ci': [0.585, 1.277], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'MAIRA-2 - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 76, 'mean': np.float64(0.697), 'ci': [0.316, 1.079], 'p': 0.0013, 'q_bh': 0.0043}
+{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'source_following', 'stratum': 'all', 'n': 63, 'mean': np.float64(0.381), 'ci': [-0.095, 0.841], 'p': 0.1505, 'q_bh': 0.2252}
+{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'source_following', 'stratum': 'contrast', 'n': 52, 'mean': np.float64(0.423), 'ci': [-0.058, 0.904], 'p': 0.1308, 'q_bh': 0.2027}
+{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 73, 'mean': np.float64(-0.055), 'ci': [-0.479, 0.356], 'p': 0.7158, 'q_bh': 0.7757}
+{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 59, 'mean': np.float64(-0.203), 'ci': [-0.644, 0.254], 'p': 0.3206, 'q_bh': 0.4174}
+{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 76, 'mean': np.float64(-0.487), 'ci': [-0.829, -0.144], 'p': 0.0066, 'q_bh': 0.0168}
+{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 62, 'mean': np.float64(-0.5), 'ci': [-0.871, -0.113], 'p': 0.009, 'q_bh': 0.0217}
+{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 84, 'mean': np.float64(0.417), 'ci': [0.095, 0.738], 'p': 0.0171, 'q_bh': 0.0362}
+{'comparison': 'MedGemma-27B - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 67, 'mean': np.float64(0.403), 'ci': [0.045, 0.776], 'p': 0.0368, 'q_bh': 0.0717}
+{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'source_following', 'stratum': 'all', 'n': 91, 'mean': np.float64(-0.308), 'ci': [-0.627, 0.022], 'p': 0.0704, 'q_bh': 0.1165}
+{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'source_following', 'stratum': 'contrast', 'n': 72, 'mean': np.float64(-0.389), 'ci': [-0.778, -0.014], 'p': 0.0526, 'q_bh': 0.0933}
+{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 88, 'mean': np.float64(-0.125), 'ci': [-0.443, 0.182], 'p': 0.4114, 'q_bh': 0.5084}
+{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 73, 'mean': np.float64(-0.151), 'ci': [-0.507, 0.192], 'p': 0.3832, 'q_bh': 0.4791}
+{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 91, 'mean': np.float64(-0.132), 'ci': [-0.44, 0.176], 'p': 0.3301, 'q_bh': 0.4272}
+{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 75, 'mean': np.float64(-0.107), 'ci': [-0.44, 0.213], 'p': 0.4426, 'q_bh': 0.538}
+{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 93, 'mean': np.float64(0.151), 'ci': [-0.183, 0.495], 'p': 0.3738, 'q_bh': 0.4726}
+{'comparison': 'Qwen2.5-VL-7B - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 75, 'mean': np.float64(0.027), 'ci': [-0.347, 0.4], 'p': 0.8908, 'q_bh': 0.9157}
+{'comparison': 'CheXagent-2-3b - Lingshu', 'effect': 'source_following', 'stratum': 'all', 'n': 86, 'mean': np.float64(0.395), 'ci': [0.023, 0.756], 'p': 0.0531, 'q_bh': 0.0934}
+{'comparison': 'CheXagent-2-3b - Lingshu', 'effect': 'source_following', 'stratum': 'contrast', 'n': 68, 'mean': np.float64(0.441), 'ci': [0.015, 0.868], 'p': 0.0663, 'q_bh': 0.1131}
+{'comparison': 'CheXagent-2-3b - Lingshu', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 91, 'mean': np.float64(0.495), 'ci': [0.187, 0.813], 'p': 0.005, 'q_bh': 0.0134}
+{'comparison': 'CheXagent-2-3b - Lingshu', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 74, 'mean': np.float64(0.378), 'ci': [0.041, 0.716], 'p': 0.0459, 'q_bh': 0.0857}
+{'comparison': 'CheXagent-2-3b - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 92, 'mean': np.float64(0.837), 'ci': [0.543, 1.141], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'CheXagent-2-3b - Lingshu', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 76, 'mean': np.float64(0.842), 'ci': [0.513, 1.184], 'p': 0.0, 'q_bh': 0.0001}
+{'comparison': 'CheXagent-2-3b - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 93, 'mean': np.float64(1.559), 'ci': [1.237, 1.871], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'CheXagent-2-3b - Lingshu', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 76, 'mean': np.float64(1.474), 'ci': [1.118, 1.816], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'source_following', 'stratum': 'all', 'n': 61, 'mean': np.float64(-0.033), 'ci': [-0.525, 0.443], 'p': 0.8886, 'q_bh': 0.9157}
+{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'source_following', 'stratum': 'contrast', 'n': 50, 'mean': np.float64(0.04), 'ci': [-0.52, 0.58], 'p': 0.8859, 'q_bh': 0.9157}
+{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 71, 'mean': np.float64(-0.394), 'ci': [-0.789, 0.0], 'p': 0.0575, 'q_bh': 0.0989}
+{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 57, 'mean': np.float64(-0.421), 'ci': [-0.86, 0.018], 'p': 0.0717, 'q_bh': 0.1178}
 {'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 75, 'mean': np.float64(-1.213), 'ci': [-1.587, -0.84], 'p': 0.0, 'q_bh': 0.0}
-{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 61, 'mean': np.float64(-1.082), 'ci': [-1.508, -0.672], 'p': 0.0, 'q_bh': 0.0003}
-{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 83, 'mean': np.float64(-0.566), 'ci': [-0.94, -0.193], 'p': 0.005, 'q_bh': 0.0195}
-{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 66, 'mean': np.float64(-0.333), 'ci': [-0.758, 0.106], 'p': 0.1235, 'q_bh': 0.2246}
-{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'source_following', 'stratum': 'all', 'n': 89, 'mean': np.float64(-0.596), 'ci': [-1.0, -0.18], 'p': 0.0107, 'q_bh': 0.0337}
-{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'source_following', 'stratum': 'contrast', 'n': 70, 'mean': np.float64(-0.686), 'ci': [-1.143, -0.229], 'p': 0.0098, 'q_bh': 0.0315}
-{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 86, 'mean': np.float64(-0.57), 'ci': [-0.942, -0.209], 'p': 0.0036, 'q_bh': 0.0147}
-{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 71, 'mean': np.float64(-0.408), 'ci': [-0.803, 0.0], 'p': 0.0554, 'q_bh': 0.1167}
-{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 92, 'mean': np.float64(-0.804), 'ci': [-1.141, -0.467], 'p': 0.0, 'q_bh': 0.0002}
-{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 74, 'mean': np.float64(-0.662), 'ci': [-1.054, -0.284], 'p': 0.0016, 'q_bh': 0.0081}
-{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 93, 'mean': np.float64(-0.817), 'ci': [-1.118, -0.516], 'p': 0.0, 'q_bh': 0.0001}
-{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 74, 'mean': np.float64(-0.716), 'ci': [-1.081, -0.378], 'p': 0.0003, 'q_bh': 0.0024}
-{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'source_following', 'stratum': 'all', 'n': 63, 'mean': np.float64(-0.698), 'ci': [-1.206, -0.159], 'p': 0.0147, 'q_bh': 0.0405}
-{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'source_following', 'stratum': 'contrast', 'n': 52, 'mean': np.float64(-0.885), 'ci': [-1.462, -0.288], 'p': 0.0065, 'q_bh': 0.0234}
-{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 71, 'mean': np.float64(-0.141), 'ci': [-0.648, 0.352], 'p': 0.6524, 'q_bh': 0.7403}
-{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 59, 'mean': np.float64(0.034), 'ci': [-0.508, 0.576], 'p': 0.8091, 'q_bh': 0.863}
-{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 77, 'mean': np.float64(0.247), 'ci': [-0.169, 0.662], 'p': 0.2374, 'q_bh': 0.3583}
-{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 63, 'mean': np.float64(0.27), 'ci': [-0.206, 0.746], 'p': 0.2536, 'q_bh': 0.3757}
-{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 84, 'mean': np.float64(-0.274), 'ci': [-0.631, 0.095], 'p': 0.1886, 'q_bh': 0.2988}
-{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 67, 'mean': np.float64(-0.403), 'ci': [-0.806, 0.0], 'p': 0.0787, 'q_bh': 0.1517}
+{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 61, 'mean': np.float64(-1.082), 'ci': [-1.508, -0.672], 'p': 0.0, 'q_bh': 0.0001}
+{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 83, 'mean': np.float64(-0.566), 'ci': [-0.94, -0.193], 'p': 0.005, 'q_bh': 0.0134}
+{'comparison': 'MedGemma-27B - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 66, 'mean': np.float64(-0.333), 'ci': [-0.758, 0.106], 'p': 0.1235, 'q_bh': 0.1941}
+{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'source_following', 'stratum': 'all', 'n': 89, 'mean': np.float64(-0.596), 'ci': [-1.0, -0.18], 'p': 0.0107, 'q_bh': 0.0254}
+{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'source_following', 'stratum': 'contrast', 'n': 70, 'mean': np.float64(-0.686), 'ci': [-1.143, -0.229], 'p': 0.0098, 'q_bh': 0.0235}
+{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 86, 'mean': np.float64(-0.57), 'ci': [-0.942, -0.209], 'p': 0.0036, 'q_bh': 0.0101}
+{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 71, 'mean': np.float64(-0.408), 'ci': [-0.803, 0.0], 'p': 0.0554, 'q_bh': 0.0968}
+{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 92, 'mean': np.float64(-0.804), 'ci': [-1.141, -0.467], 'p': 0.0, 'q_bh': 0.0001}
+{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 74, 'mean': np.float64(-0.662), 'ci': [-1.054, -0.284], 'p': 0.0016, 'q_bh': 0.0049}
+{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 93, 'mean': np.float64(-0.817), 'ci': [-1.118, -0.516], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'Qwen2.5-VL-7B - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 74, 'mean': np.float64(-0.716), 'ci': [-1.081, -0.378], 'p': 0.0003, 'q_bh': 0.0014}
+{'comparison': 'CheXagent-2-3b - MAIRA-2', 'effect': 'source_following', 'stratum': 'all', 'n': 83, 'mean': np.float64(0.06), 'ci': [-0.301, 0.422], 'p': 0.8686, 'q_bh': 0.9056}
+{'comparison': 'CheXagent-2-3b - MAIRA-2', 'effect': 'source_following', 'stratum': 'contrast', 'n': 65, 'mean': np.float64(0.062), 'ci': [-0.338, 0.462], 'p': 0.9599, 'q_bh': 0.9777}
+{'comparison': 'CheXagent-2-3b - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 93, 'mean': np.float64(0.129), 'ci': [-0.172, 0.441], 'p': 0.4901, 'q_bh': 0.5766}
+{'comparison': 'CheXagent-2-3b - MAIRA-2', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 74, 'mean': np.float64(0.135), 'ci': [-0.162, 0.446], 'p': 0.4838, 'q_bh': 0.5722}
+{'comparison': 'CheXagent-2-3b - MAIRA-2', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 94, 'mean': np.float64(0.202), 'ci': [-0.085, 0.5], 'p': 0.1618, 'q_bh': 0.2357}
+{'comparison': 'CheXagent-2-3b - MAIRA-2', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 75, 'mean': np.float64(0.307), 'ci': [-0.027, 0.64], 'p': 0.0686, 'q_bh': 0.1161}
+{'comparison': 'CheXagent-2-3b - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 93, 'mean': np.float64(0.656), 'ci': [0.366, 0.946], 'p': 0.0, 'q_bh': 0.0002}
+{'comparison': 'CheXagent-2-3b - MAIRA-2', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 75, 'mean': np.float64(0.787), 'ci': [0.467, 1.093], 'p': 0.0, 'q_bh': 0.0001}
+{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'source_following', 'stratum': 'all', 'n': 63, 'mean': np.float64(-0.698), 'ci': [-1.206, -0.159], 'p': 0.0147, 'q_bh': 0.0317}
+{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'source_following', 'stratum': 'contrast', 'n': 52, 'mean': np.float64(-0.885), 'ci': [-1.462, -0.288], 'p': 0.0065, 'q_bh': 0.0168}
+{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 71, 'mean': np.float64(-0.141), 'ci': [-0.648, 0.352], 'p': 0.6524, 'q_bh': 0.7238}
+{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 59, 'mean': np.float64(0.034), 'ci': [-0.508, 0.576], 'p': 0.8091, 'q_bh': 0.8557}
+{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 77, 'mean': np.float64(0.247), 'ci': [-0.169, 0.662], 'p': 0.2374, 'q_bh': 0.3284}
+{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 63, 'mean': np.float64(0.27), 'ci': [-0.206, 0.746], 'p': 0.2536, 'q_bh': 0.3465}
+{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 84, 'mean': np.float64(-0.274), 'ci': [-0.631, 0.095], 'p': 0.1886, 'q_bh': 0.2695}
+{'comparison': 'Qwen2.5-VL-7B - MedGemma-27B', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 67, 'mean': np.float64(-0.403), 'ci': [-0.806, 0.0], 'p': 0.0787, 'q_bh': 0.1283}
+{'comparison': 'CheXagent-2-3b - MedGemma-27B', 'effect': 'source_following', 'stratum': 'all', 'n': 62, 'mean': np.float64(0.097), 'ci': [-0.323, 0.532], 'p': 0.6169, 'q_bh': 0.696}
+{'comparison': 'CheXagent-2-3b - MedGemma-27B', 'effect': 'source_following', 'stratum': 'contrast', 'n': 51, 'mean': np.float64(0.118), 'ci': [-0.353, 0.608], 'p': 0.5825, 'q_bh': 0.6709}
+{'comparison': 'CheXagent-2-3b - MedGemma-27B', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 73, 'mean': np.float64(0.493), 'ci': [0.096, 0.904], 'p': 0.0215, 'q_bh': 0.0441}
+{'comparison': 'CheXagent-2-3b - MedGemma-27B', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 59, 'mean': np.float64(0.542), 'ci': [0.102, 1.0], 'p': 0.0234, 'q_bh': 0.0472}
+{'comparison': 'CheXagent-2-3b - MedGemma-27B', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 77, 'mean': np.float64(1.299), 'ci': [0.922, 1.688], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'CheXagent-2-3b - MedGemma-27B', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 63, 'mean': np.float64(1.317), 'ci': [0.889, 1.762], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'CheXagent-2-3b - MedGemma-27B', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 85, 'mean': np.float64(1.129), 'ci': [0.8, 1.447], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'CheXagent-2-3b - MedGemma-27B', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 68, 'mean': np.float64(1.044), 'ci': [0.72, 1.368], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'source_following', 'stratum': 'all', 'n': 87, 'mean': np.float64(0.782), 'ci': [0.368, 1.173], 'p': 0.0005, 'q_bh': 0.0018}
+{'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'source_following', 'stratum': 'contrast', 'n': 69, 'mean': np.float64(0.928), 'ci': [0.464, 1.391], 'p': 0.0005, 'q_bh': 0.0019}
+{'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'own_vs_other', 'stratum': 'all', 'n': 88, 'mean': np.float64(0.648), 'ci': [0.295, 1.023], 'p': 0.0013, 'q_bh': 0.0042}
+{'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'own_vs_other', 'stratum': 'contrast', 'n': 73, 'mean': np.float64(0.534), 'ci': [0.151, 0.918], 'p': 0.012, 'q_bh': 0.0281}
+{'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'image_vs_blank', 'stratum': 'all', 'n': 94, 'mean': np.float64(0.989), 'ci': [0.66, 1.319], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'image_vs_blank', 'stratum': 'contrast', 'n': 76, 'mean': np.float64(0.947), 'ci': [0.579, 1.316], 'p': 0.0, 'q_bh': 0.0001}
+{'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'image_vs_noinfo', 'stratum': 'all', 'n': 94, 'mean': np.float64(1.479), 'ci': [1.181, 1.777], 'p': 0.0, 'q_bh': 0.0}
+{'comparison': 'CheXagent-2-3b - Qwen2.5-VL-7B', 'effect': 'image_vs_noinfo', 'stratum': 'contrast', 'n': 76, 'mean': np.float64(1.526), 'ci': [1.211, 1.855], 'p': 0.0, 'q_bh': 0.0}
 
 wrote /localstorage/home/p20250084/medical-vlm-gap/reports/project_a_scaled_results.json

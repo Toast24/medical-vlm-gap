@@ -90,6 +90,21 @@
   },
   "by_finding": {
     "ba_gain": {
+      "CheXagent-2-3b": {
+        "Atelectasis": 0.181,
+        "Cardiomegaly": 0.215,
+        "Consolidation": 0.161,
+        "Edema": 0.334,
+        "Enlarged Cardiomediastinum": 0.039,
+        "Fracture": 0.289,
+        "Lung Lesion": 0.083,
+        "Lung Opacity": 0.253,
+        "Pleural Effusion": 0.245,
+        "Pleural Other": 0.25,
+        "Pneumonia": -0.005,
+        "Pneumothorax": 0.275,
+        "Support Devices": 0.442
+      },
       "Lingshu": {
         "Atelectasis": 0.029,
         "Cardiomegaly": -0.051,
@@ -152,6 +167,21 @@
       }
     },
     "image_gain": {
+      "CheXagent-2-3b": {
+        "Atelectasis": 0.559,
+        "Cardiomegaly": 0.5,
+        "Consolidation": 0.533,
+        "Edema": 0.778,
+        "Enlarged Cardiomediastinum": 0.111,
+        "Fracture": 0.6,
+        "Lung Lesion": 0.167,
+        "Lung Opacity": 0.839,
+        "Pleural Effusion": 0.733,
+        "Pleural Other": 0.5,
+        "Pneumonia": 0.0,
+        "Pneumothorax": 0.571,
+        "Support Devices": 0.906
+      },
       "Lingshu": {
         "Atelectasis": 0.059,
         "Cardiomegaly": -0.929,
@@ -214,6 +244,21 @@
       }
     },
     "source_following": {
+      "CheXagent-2-3b": {
+        "Atelectasis": -0.074,
+        "Cardiomegaly": 0.433,
+        "Consolidation": 0.129,
+        "Edema": 0.398,
+        "Enlarged Cardiomediastinum": 0.111,
+        "Fracture": 0.333,
+        "Lung Lesion": 0.167,
+        "Lung Opacity": 0.213,
+        "Pleural Effusion": 0.409,
+        "Pleural Other": 0.0,
+        "Pneumonia": 0.182,
+        "Pneumothorax": 0.121,
+        "Support Devices": 0.746
+      },
       "Lingshu": {
         "Atelectasis": 0.074,
         "Cardiomegaly": 0.1,
@@ -278,6 +323,11 @@
   },
   "by_tier": {
     "ba_gain": {
+      "CheXagent-2-3b": {
+        "rare (<10%)": 0.155,
+        "moderate (10-25%)": 0.188,
+        "common (>=25%)": 0.291
+      },
       "Lingshu": {
         "rare (<10%)": 0.032,
         "moderate (10-25%)": -0.026,
@@ -300,6 +350,11 @@
       }
     },
     "image_gain": {
+      "CheXagent-2-3b": {
+        "rare (<10%)": 0.325,
+        "moderate (10-25%)": 0.517,
+        "common (>=25%)": 0.763
+      },
       "Lingshu": {
         "rare (<10%)": 0.079,
         "moderate (10-25%)": -0.464,
@@ -322,6 +377,11 @@
       }
     },
     "source_following": {
+      "CheXagent-2-3b": {
+        "rare (<10%)": 0.152,
+        "moderate (10-25%)": 0.281,
+        "common (>=25%)": 0.338
+      },
       "Lingshu": {
         "rare (<10%)": 0.0,
         "moderate (10-25%)": 0.05,

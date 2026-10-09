@@ -17,76 +17,76 @@ Fracture                      0.05
 Pleural Other                 0.02
 
 == ba_gain by finding (rows) and model (columns) ==
-model                       Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
-finding                                                                  
-Atelectasis                    0.03     0.17          0.06          -0.02
-Cardiomegaly                  -0.05     0.26          0.20          -0.04
-Consolidation                  0.00     0.02          0.02          -0.04
-Edema                          0.08     0.19          0.12           0.00
-Enlarged Cardiomediastinum     0.12    -0.02          0.05          -0.02
-Fracture                       0.00     0.10         -0.03           0.00
-Lung Lesion                    0.00    -0.01          0.13          -0.01
-Lung Opacity                   0.05     0.10          0.01          -0.01
-Pleural Effusion               0.02     0.20          0.25          -0.01
-Pleural Other                  0.00    -0.02          0.00          -0.01
-Pneumonia                      0.00     0.08         -0.02           0.00
-Pneumothorax                   0.07     0.06          0.16          -0.01
-Support Devices                0.19     0.37          0.24          -0.02
+model                       CheXagent-2-3b  Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
+finding                                                                                  
+Atelectasis                           0.18     0.03     0.17          0.06          -0.02
+Cardiomegaly                          0.22    -0.05     0.26          0.20          -0.04
+Consolidation                         0.16     0.00     0.02          0.02          -0.04
+Edema                                 0.33     0.08     0.19          0.12           0.00
+Enlarged Cardiomediastinum            0.04     0.12    -0.02          0.05          -0.02
+Fracture                              0.29     0.00     0.10         -0.03           0.00
+Lung Lesion                           0.08     0.00    -0.01          0.13          -0.01
+Lung Opacity                          0.25     0.05     0.10          0.01          -0.01
+Pleural Effusion                      0.25     0.02     0.20          0.25          -0.01
+Pleural Other                         0.25     0.00    -0.02          0.00          -0.01
+Pneumonia                            -0.01     0.00     0.08         -0.02           0.00
+Pneumothorax                          0.27     0.07     0.06          0.16          -0.01
+Support Devices                       0.44     0.19     0.37          0.24          -0.02
 
 == ba_gain: mean by tier ==
-model              Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
-tier                                                            
-rare (<10%)           0.03     0.03          0.05          -0.01
-moderate (10-25%)    -0.03     0.14          0.11          -0.04
-common (>=25%)        0.07     0.21          0.14          -0.01
+model              CheXagent-2-3b  Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
+tier                                                                            
+rare (<10%)                  0.16     0.03     0.03          0.05          -0.01
+moderate (10-25%)            0.19    -0.03     0.14          0.11          -0.04
+common (>=25%)               0.29     0.07     0.21          0.14          -0.01
 
 == image_gain by finding (rows) and model (columns) ==
-model                       Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
-finding                                                                  
-Atelectasis                    0.06     0.59         -0.65           0.00
-Cardiomegaly                  -0.93     0.79         -0.36           0.00
-Consolidation                  0.00     0.07         -0.80           0.00
-Edema                         -0.74     0.44          0.33           0.00
-Enlarged Cardiomediastinum     0.33     0.00          0.44           0.00
-Fracture                       0.00     0.20          0.00           0.00
-Lung Lesion                    0.00     0.00          0.33           0.00
-Lung Opacity                   0.13     0.35         -0.52           0.06
-Pleural Effusion               0.03     0.57          0.67           0.07
-Pleural Other                  0.00     0.00          0.00           0.00
-Pneumonia                      0.00     0.33          0.00           0.00
-Pneumothorax                   0.14     0.14          0.43           0.00
-Support Devices                0.42     0.79          0.85           0.13
+model                       CheXagent-2-3b  Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
+finding                                                                                  
+Atelectasis                           0.56     0.06     0.59         -0.65           0.00
+Cardiomegaly                          0.50    -0.93     0.79         -0.36           0.00
+Consolidation                         0.53     0.00     0.07         -0.80           0.00
+Edema                                 0.78    -0.74     0.44          0.33           0.00
+Enlarged Cardiomediastinum            0.11     0.33     0.00          0.44           0.00
+Fracture                              0.60     0.00     0.20          0.00           0.00
+Lung Lesion                           0.17     0.00     0.00          0.33           0.00
+Lung Opacity                          0.84     0.13     0.35         -0.52           0.06
+Pleural Effusion                      0.73     0.03     0.57          0.67           0.07
+Pleural Other                         0.50     0.00     0.00          0.00           0.00
+Pneumonia                             0.00     0.00     0.33          0.00           0.00
+Pneumothorax                          0.57     0.14     0.14          0.43           0.00
+Support Devices                       0.91     0.42     0.79          0.85           0.13
 
 == image_gain: mean by tier ==
-model              Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
-tier                                                            
-rare (<10%)           0.08     0.11          0.20           0.00
-moderate (10-25%)    -0.46     0.43         -0.58           0.00
-common (>=25%)       -0.02     0.55          0.14           0.05
+model              CheXagent-2-3b  Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
+tier                                                                            
+rare (<10%)                  0.32     0.08     0.11          0.20           0.00
+moderate (10-25%)            0.52    -0.46     0.43         -0.58           0.00
+common (>=25%)               0.76    -0.02     0.55          0.14           0.05
 
 == source_following by finding (rows) and model (columns) ==
-model                       Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
-finding                                                                  
-Atelectasis                    0.07    -0.04          0.11           0.00
-Cardiomegaly                   0.10    -0.23          0.10           0.03
-Consolidation                  0.00     0.04         -0.09           0.07
-Edema                          0.07     0.16          0.22           0.05
-Enlarged Cardiomediastinum     0.00     0.11          0.33           0.00
-Fracture                       0.00     0.33          0.33           0.00
-Lung Lesion                    0.00     0.00          0.17           0.00
-Lung Opacity                  -0.07     0.09          0.12          -0.02
-Pleural Effusion               0.14     0.27          0.29           0.09
-Pleural Other                  0.00     0.25          0.00           0.00
-Pneumonia                      0.00     0.55          0.27           0.00
-Pneumothorax                   0.00     0.02         -0.12           0.00
-Support Devices                0.30     0.75          0.39           0.02
+model                       CheXagent-2-3b  Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
+finding                                                                                  
+Atelectasis                          -0.07     0.07    -0.04          0.11           0.00
+Cardiomegaly                          0.43     0.10    -0.23          0.10           0.03
+Consolidation                         0.13     0.00     0.04         -0.09           0.07
+Edema                                 0.40     0.07     0.16          0.22           0.05
+Enlarged Cardiomediastinum            0.11     0.00     0.11          0.33           0.00
+Fracture                              0.33     0.00     0.33          0.33           0.00
+Lung Lesion                           0.17     0.00     0.00          0.17           0.00
+Lung Opacity                          0.21    -0.07     0.09          0.12          -0.02
+Pleural Effusion                      0.41     0.14     0.27          0.29           0.09
+Pleural Other                         0.00     0.00     0.25          0.00           0.00
+Pneumonia                             0.18     0.00     0.55          0.27           0.00
+Pneumothorax                          0.12     0.00     0.02         -0.12           0.00
+Support Devices                       0.75     0.30     0.75          0.39           0.02
 
 == source_following: mean by tier ==
-model              Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
-tier                                                            
-rare (<10%)           0.00     0.21          0.16           0.00
-moderate (10-25%)     0.05    -0.10          0.01           0.05
-common (>=25%)        0.10     0.25          0.23           0.03
+model              CheXagent-2-3b  Lingshu  MAIRA-2  MedGemma-27B  Qwen2.5-VL-7B
+tier                                                                            
+rare (<10%)                  0.15     0.00     0.21          0.16           0.00
+moderate (10-25%)            0.28     0.05    -0.10          0.01           0.05
+common (>=25%)               0.34     0.10     0.25          0.23           0.03
 
 wrote /localstorage/home/p20250084/medical-vlm-gap/reports/finding_tiers_chexpert.csv
 wrote /localstorage/home/p20250084/medical-vlm-gap/reports/finding_tiers_chexpert.json
